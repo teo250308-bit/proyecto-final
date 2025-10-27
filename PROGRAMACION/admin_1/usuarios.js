@@ -47,24 +47,24 @@
 // })
 
 
-// function eliminarusuario(id, rol){
-//     console.log(rol);
+function eliminarusuario(id, rol){
+    console.log(rol);
     
-//     if(rol != "admin"){
+    if(rol != "admin"){
 
-//         fetch("eliminarusuario.php?id="+id)
-//         .then(res => res.json())
-//         .then(data => {
-//             alert("Usuario eliminado")
-//             location.reload()
-//         })
-//     }else{
-//         alert("No podes eliminar el adminsitrador")
+        fetch("eliminarusuario.php?id="+id)
+        .then(res => res.json())
+        .then(data => {
+            alert("Usuario eliminado")
+            location.reload()
+        })
+    }else{
+        alert("No podes eliminar el adminsitrador")
 
-//     }
+    }
         
 
-// }
+}
 
 // usuarios.js
 
