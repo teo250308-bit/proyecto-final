@@ -1,0 +1,33 @@
+<?php
+include "../conexion.php";
+
+$nombre = $_GET["nombre"];
+$unidad = $_GET["unidad"];
+$gramos_litros = $_GET["gramos_litros"];
+$stock_actual = $_GET["stock_actual"];
+$stock_minimo = $_GET["stock_minimo"];
+$fecha_vencimiento = $_GET["fecha_vencimiento"];
+$calorias = $_GET["calorias"];
+$grasas = $_GET["grasas"];
+$proteinas = $_GET["proteinas"];
+$carbohidratos = $_GET["carbohidratos"];
+$mililitros = isset($_GET["mililitros"]) ? $_GET["mililitros"] : NULL;
+
+if (empty($nombre) || empty($unidad) || empty($gramos_litros) || empty($stock_actual) || empty($stock_minimo) || empty($fecha_vencimiento) || empty($calorias) || empty($grasas) || empty($proteinas) || empty($carbohidratos)) {
+    echo "Debe completar todos los campos obligatorios.";
+} else {
+    $sql = "INSERT INTO Ingrediente (Nombre, Unidad, Gramos_Litros, Stock_actual, Stock_minimo, Fecha_vencimiento, Calorias, Grasas, Proteinas, Carbohidratos, Mililitros) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    $sentencia = $conn->prepare($sql);
+    $sentencia->bind_param("ssiissiiiii", $nombre, $unidad, $gramos_litros, $stock_actual, $stock_minimo, $fecha_vencimiento, $calorias, $grasas, $proteinas, $carbohidratos, $mililitros);
+
+    if ($sentencia->execute()) {
+        echo "Se ha registrado el ingrediente con éxito.";
+    } else {
+        echo "Error al registrar el ingrediente: " . $sentencia->error;
+    }
+}
+
+echo "<br><br><a href='../index.html'>Inicio</a>";
+
+$conn->close();
+?>

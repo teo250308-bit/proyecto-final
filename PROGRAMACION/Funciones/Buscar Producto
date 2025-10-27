@@ -1,0 +1,29 @@
+<?php
+include "../conexion.php";
+
+$id = $_GET["id"];
+
+$sql = "SELECT * FROM Producto WHERE Id_producto = ?";
+$sentencia = $conn->prepare($sql);
+$sentencia->bind_param("i", $id);
+$sentencia->execute();
+$result = $sentencia->get_result();
+$fila = $result->fetch_assoc();
+
+if (empty($id)) {
+    echo "Debe ingresar el ID del producto a buscar.";
+} elseif (!$fila) {
+    echo "El producto no existe.";
+} else {
+    echo "ID: " . $fila["Id_producto"] . " <br>";
+    echo "Nombre: " . $fila["Nombre"] . " <br>";
+    echo "Descripción: " . $fila["Descripcion"] . " <br>";
+    echo "Es personalizable: " . $fila["es_personalizable"] . " <br>";
+    echo "Imagen: " . $fila["Imagen"] . " <br>";
+    echo "Tipo: " . $fila["Tipo"] . " <br>";
+}
+
+echo "<br><br><a href='../index.html'>Inicio</a>";
+
+$conn->close();
+?>

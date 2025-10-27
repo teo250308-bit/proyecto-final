@@ -1,0 +1,23 @@
+<?php
+include "../conexion.php";
+
+$id = $_GET["id"];
+
+if (empty($id)) {
+    echo "Debe ingresar el ID del producto a borrar.";
+} else {
+    $sql = "DELETE FROM Producto WHERE Id_producto = ?";
+    $sentencia = $conn->prepare($sql);
+    $sentencia->bind_param("i", $id);
+    
+    if ($sentencia->execute()) {
+        echo "Se ha borrado el producto con éxito.";
+    } else {
+        echo "Error al borrar el producto: " . $sentencia->error;
+    }
+}
+
+echo "<br><br><a href='../index.html'>Inicio</a>";
+
+$conn->close();
+?>

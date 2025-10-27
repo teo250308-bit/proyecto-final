@@ -1,0 +1,25 @@
+* { box-sizing: border-box; }
+body {
+    font-family: Inter, Arial, sans-serif;
+    background:#f0f2f5;
+    margin:0;
+    padding:20px;
+}
+.container {
+    max-width:1000px;
+    margin:0 auto;
+}
+h1 { text-align:center; margin-bottom:20px; }
+.panel { background:white; padding:15px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.04); margin-bottom:15px; }
+.agregar form { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.agregar input, .agregar select { padding:8px; border:1px solid #ddd; border-radius:6px; }
+.agregar button { padding:8px 12px; border:none; border-radius:6px; cursor:pointer; }
+table { width:100%; border-collapse:collapse; }
+table th, table td { padding:10px; border-bottom:1px solid #eee; text-align:center; }
+button.accion { padding:6px 8px; border-radius:6px; border:none; cursor:pointer; }
+button.delete { background:#ff6b6b; color:white; }
+button.role { background:#4caf50; color:white; }
+.mensaje { margin-top:8px; color:#333; font-size:14px; }
+@media(max-width:720px){
+  .agregar form { flex-direction:column; align-items:stretch; }
+}

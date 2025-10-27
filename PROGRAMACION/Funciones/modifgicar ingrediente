@@ -1,0 +1,34 @@
+<?php
+include "../conexion.php";
+
+$id = $_GET["id"];
+$nombre = $_GET["nombre"];
+$unidad = $_GET["unidad"];
+$gramos_litros = $_GET["gramos_litros"];
+$stock_actual = $_GET["stock_actual"];
+$stock_minimo = $_GET["stock_minimo"];
+$fecha_vencimiento = $_GET["fecha_vencimiento"];
+$calorias = $_GET["calorias"];
+$grasas = $_GET["grasas"];
+$proteinas = $_GET["proteinas"];
+$carbohidratos = $_GET["carbohidratos"];
+$mililitros = isset($_GET["mililitros"]) ? $_GET["mililitros"] : NULL;
+
+if (empty($nombre) || empty($unidad) || empty($gramos_litros) || empty($stock_actual) || empty($stock_minimo) || empty($fecha_vencimiento) || empty($calorias) || empty($grasas) || empty($proteinas) || empty($carbohidratos)) {
+    echo "Debe completar todos los campos obligatorios.";
+} else {
+    $sql = "UPDATE Ingrediente SET Nombre=?, Unidad=?, Gramos_Litros=?, Stock_actual=?, Stock_minimo=?, Fecha_vencimiento=?, Calorias=?, Grasas=?, Proteinas=?, Carbohidratos=?, Mililitros=? WHERE Id_ingrediente=?";
+    $sentencia = $conn->prepare($sql);
+    $sentencia->bind_param("ssiissiiiiii", $nombre, $unidad, $gramos_litros, $stock_actual, $stock_minimo, $fecha_vencimiento, $calorias, $grasas, $proteinas, $carbohidratos, $mililitros, $id);
+    
+    if ($sentencia->execute()) {
+        echo "Se ha actualizado el ingrediente con éxito.";
+    } else {
+        echo "Error al actualizar el ingrediente: " . $sentencia->error;
+    }
+}
+
+echo "<br><br><a href='../index.html'>Inicio</a>";
+
+$conn->close();
+?>

@@ -1,0 +1,24 @@
+<?php
+include "../conexion.php";
+
+$sql = "SELECT * FROM Producto";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($fila = $result->fetch_assoc()) {
+        echo "ID: " . $fila["Id_producto"] . " <br>";
+        echo "Nombre: " . $fila["Nombre"] . " <br>";
+        echo "Descripción: " . $fila["Descripcion"] . " <br>";
+        echo "Es personalizable: " . $fila["es_personalizable"] . " <br>";
+        echo "Imagen: " . $fila["Imagen"] . " <br>";
+        echo "Tipo: " . $fila["Tipo"] . " <br>";
+        echo "<hr>";
+    }
+} else {
+    echo "No se encontraron productos.";
+}
+
+echo "<br><a href='../index.html'>Inicio</a>";
+
+$conn->close();
+?>

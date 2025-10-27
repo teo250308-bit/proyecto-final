@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Nutrant</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Poller+One&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.23.0/dist/sweetalert2.min.css" rel="stylesheet">
+  </head>
+<body class="login-page">
+    <div class="wrap-header-hero2">
+    <header class="main-header">
+    <div class="header-wrap">
+    <div class="wrap-logo-header">
+      <a class="logo-header" href="../index.html">
+        NUTRANT
+      </a>
+    </div>
+    <div class="wrap-nav-header">
+      <nav class="nav-header">
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+          <i class="toggle-menu">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDM4NCAzODQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTM2OCAxNTQuNjY3OTY5aC0zNTJjLTguODMyMDMxIDAtMTYtNy4xNjc5NjktMTYtMTZzNy4xNjc5NjktMTYgMTYtMTZoMzUyYzguODMyMDMxIDAgMTYgNy4xNjc5NjkgMTYgMTZzLTcuMTY3OTY5IDE2LTE2IDE2em0wIDAiIGZpbGw9IiMwMDAwMDAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0zNjggMzJoLTM1MmMtOC44MzIwMzEgMC0xNi03LjE2Nzk2OS0xNi0xNnM3LjE2Nzk2OS0xNiAxNi0xNmgzNTJjOC44MzIwMzEgMCAxNiA3LjE2Nzk2OSAxNiAxNnMtNy4xNjc5NjkgMTYtMTYgMTZ6bTAgMCIgZmlsbD0iIzAwMDAwMCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTM2OCAyNzcuMzMyMDMxaC0zNTJjLTguODMyMDMxIDAtMTYtNy4xNjc5NjktMTYtMTZzNy4xNjc5NjktMTYgMTYtMTZoMzUyYzguODMyMDMxIDAgMTYgNy4xNjc5NjkgMTYgMTZzLTcuMTY3OTY5IDE2LTE2IDE2em0wIDAiIGZpbGw9IiMwMDAwMDAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiPjwvcGF0aD48L2c+PC9zdmc+" />
+          </i>
+        </label>
+
+        <ul class="main-menu">
+          <li class="menu-item"><a href="../index.html">Inicio</a></li>
+          <!-- <li class="menu-item"><a href="">Menu</a></li> -->
+          <!-- <li class="menu-item"><a href="registro.html">registrarse</a></li> -->
+          <li class="menu-item"><a href="../porceso_de_login/login.html">iniciar sesion</a></li>
+          <!-- <li id="nav-main-contact" class="menu-item"><a href="contacto.html">Contacto</a></li> -->
+        </ul>
+
+      </nav>
+    </div>
+    </header>
+    </div>
+   <!--<div class="header-wrap">
+        <h1 class="wrap-title-section">Crear Cuenta</h1>
+    </div>-->
+  <div class="login-box">
+        <h2>Crear Cuenta</h2>
+        <form id="registerForm">
+  <div class="campo">
+    <p>Nombre</p>
+    <input type="text" name="nombre" placeholder="Nombre" required>
+  </div>
+
+  <div class="campo">
+    <p>Apellido</p>
+    <input type="text" name="apellido" placeholder="Apellido" required>
+  </div>
+
+  <div class="campo">
+    <p>Correo Gmail</p>
+    <input type="email" name="email" placeholder="Correo Gmail" required>
+  </div>
+
+  <div class="campo">
+    <p>Contraseña</p>
+    <input type="password" name="password" placeholder="Contraseña" required>
+  </div>
+
+  <input type="submit" value="Registrarse">
+</form>
+        <p>¿Ya tenés cuenta? <a href="../porceso_de_login/login.html">Volver al login</a></p>
+    </div>
+    <script src="registro.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.23.0/dist/sweetalert2.all.min.js"></script>
+</body>
+</html>

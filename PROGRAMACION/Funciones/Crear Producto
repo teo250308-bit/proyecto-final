@@ -1,0 +1,26 @@
+<?php
+include "../conexion.php";
+
+$nombre = $_GET["nombre"];
+$descripcion = $_GET["descripcion"];
+$es_personalizable = $_GET["es_personalizable"];
+$imagen = $_GET["imagen"];
+$tipo = $_GET["tipo"];
+
+if (empty($nombre) || empty($descripcion) || empty($es_personalizable) || empty($imagen) || empty($tipo)) {
+    echo "Debe completar todos los campos.";
+} else {
+    $sql = "INSERT INTO Producto (Nombre, Descripcion, es_personalizable, Imagen, Tipo) VALUES (?, ?, ?, ?, ?);";
+    $sentencia = $conn->prepare($sql);
+    $sentencia->bind_param("ssiss", $nombre, $descripcion, $es_personalizable, $imagen, $tipo);
+    if ($sentencia->execute()) {
+        echo "Se ha registrado el producto con éxito.";
+    } else {
+        echo "Error al registrar el producto: " . $sentencia->error;
+    }
+}
+
+echo "<br><br><a href='../index.html'>Inicio</a>";
+
+$conn->close();
+?>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+            background-image:linear-gradient(to bottom, rgb(0 0 0 / .75), rgb(0 0 0 / .5)), url(img/hero-front-page-bg.jpg);
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffc400ad;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-section {
+            border: 1px solid #e5e7eb;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.75rem;
+        }
+        input[type="text"], input[type="number"], input[type="date"] {
+            @apply w-full p-2 border border-gray-300 rounded-md mb-2;
+        }
+        input[type="submit"] {
+            @apply bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 cursor-pointer transition-colors duration-200;
+        }
+    </style>
+</head>
+<body class="p-8">
+    <div class="container">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-6">Gestión de Inventario</h1>
+        
+        <!-- Sección de Gestión de Productos -->
+        <h2 class="text-3xl font-bold text-gray-700 mt-8 mb-4">Gestión de Productos</h2>
+        <div class="form-section">
+            <h3 class="text-2xl font-semibold mb-4">Crear Producto</h3>
+            <form action="Funciones/crear.php" method="get">
+                <input type="text" name="nombre" placeholder="Nombre del Producto" required>
+                <input type="text" name="descripcion" placeholder="Descripción" required>
+                <input type="number" name="es_personalizable" placeholder="Es personalizable (0 o 1)" required>
+                <input type="text" name="imagen" placeholder="URL de la imagen" required>
+                <input type="text" name="tipo" placeholder="Tipo (Principal, Acompañamiento, Bebida)" required>
+                <input type="submit" value="Crear">
+            </form>
+        </div>
+        
+        <div class="form-section">
+            <h3 class="text-2xl font-semibold mb-4">Listar Productos</h3>
+            <form action="Funciones/listar.php" method="get">
+                <input type="submit" value="Ver todos los productos">
+            </form>
+        </div>
+        
+        <div class="form-section">
+            <h3 class="text-2xl font-semibold mb-4">Buscar Producto</h3>
+            <form action="Funciones/buscar.php" method="get">
+                <input type="number" name="id" placeholder="ID del producto a buscar" required>
+                <input type="submit" value="Buscar">
+            </form>
+        </div>
+        
+        <div class="form-section">
+            <h3 class="text-2xl font-semibold mb-4">Modificar Producto</h3>
+            <form action="Funciones/cambiar.php" method="get">
+                <input type="number" name="id" placeholder="ID del producto a modificar" required>
+                <input type="submit" value="Modificar">
+            </form>
+        </div>
+        
+        <div class="form-section">
+            <h3 class="text-2xl font-semibold mb-4">Borrar Producto</h3>
+            <form action="Funciones/borrar.php" method="get">
+                <input type="number" name="id" placeholder="ID del producto a borrar" required>
+                <input type="submit" value="Borrar">
+            </form>
+        </div>
+
+        <!-- Sección de Gestión de Ingredientes -->
+        <h2 class="text-3xl font-bold text-gray-700 mt-8 mb-4">Gestión de Ingredientes</h2>
+        <div class="form-section">
+            <h3 class="text-2xl font-semibold mb-4">Crear Ingrediente</h3>
+            <form action="Funciones/crear_ingrediente.php" method="get">
+                <input type="text" name="nombre" placeholder="Nombre del Ingrediente" required>
+                <input type="text" name="unidad" placeholder="Unidad (Kg, Lt, etc.)" required>
+                <input type="number" step="0.01" name="gramos_litros" placeholder="Gramos/Litros por unidad" required>
+                <input type="number" name="stock_actual" placeholder="Stock actual" required>
+                <input type="number" name="stock_minimo" placeholder="Stock mínimo" required>
+                <input type="date" name="fecha_vencimiento" placeholder="Fecha de vencimiento" required>
+                <input type="number" name="calorias" placeholder="Calorías" required>
+                <input type="number" name="grasas" placeholder="Grasas" required>
+                <input type="number" name="proteinas" placeholder="Proteínas" required>
+                <input type="number" name="carbohidratos" placeholder="Carbohidratos" required>
+                <input type="number" step="0.01" name="mililitros" placeholder="Mililitros (opcional)">
+                <input type="submit" value="Crear">
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h3 class="text-2xl font-semibold mb-4">Listar Ingredientes</h3>
+            <form action="Funciones/listar_ingrediente.php" method="get">
+                <input type="submit" value="Ver todos los ingredientes">
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h3 class="text-2xl font-semibold mb-4">Buscar Ingrediente</h3>
+            <form action="Funciones/buscar_ingrediente.php" method="get">
+                <input type="number" name="id" placeholder="ID del ingrediente a buscar" required>
+                <input type="submit" value="Buscar">
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h3 class="text-2xl font-semibold mb-4">Modificar Ingrediente</h3>
+            <form action="Funciones/cambiar_ingrediente.php" method="get">
+                <input type="number" name="id" placeholder="ID del ingrediente a modificar" required>
+                <input type="submit" value="Modificar">
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h3 class="text-2xl font-semibold mb-4">Borrar Ingrediente</h3>
+            <form action="Funciones/borrar_ingrediente.php" method="get">
+                <input type="number" name="id" placeholder="ID del ingrediente a borrar" required>
+                <input type="submit" value="Borrar">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

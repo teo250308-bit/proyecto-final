@@ -1,0 +1,30 @@
+<?php
+include "../conexion.php";
+
+$sql = "SELECT * FROM Ingrediente";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($fila = $result->fetch_assoc()) {
+        echo "ID: " . $fila["Id_ingrediente"] . " <br>";
+        echo "Nombre: " . $fila["Nombre"] . " <br>";
+        echo "Unidad: " . $fila["Unidad"] . " <br>";
+        echo "Gramos/Litros: " . $fila["Gramos_Litros"] . " <br>";
+        echo "Stock Actual: " . $fila["Stock_actual"] . " <br>";
+        echo "Stock Mínimo: " . $fila["Stock_minimo"] . " <br>";
+        echo "Fecha de Vencimiento: " . $fila["Fecha_vencimiento"] . " <br>";
+        echo "Calorías: " . $fila["Calorias"] . " <br>";
+        echo "Grasas: " . $fila["Grasas"] . " <br>";
+        echo "Proteínas: " . $fila["Proteinas"] . " <br>";
+        echo "Carbohidratos: " . $fila["Carbohidratos"] . " <br>";
+        echo "Mililitros: " . ($fila["Mililitros"] ?? "N/A") . " <br>";
+        echo "<hr>";
+    }
+} else {
+    echo "No se encontraron ingredientes.";
+}
+
+echo "<br><a href='../index.html'>Inicio</a>";
+
+$conn->close();
+?>

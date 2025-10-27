@@ -1,0 +1,28 @@
+<?php
+include "../conexion.php";
+
+$id = $_GET["id"];
+$nombre = $_GET["nombre"];
+$descripcion = $_GET["descripcion"];
+$es_personalizable = $_GET["es_personalizable"];
+$imagen = $_GET["imagen"];
+$tipo = $_GET["tipo"];
+
+if (empty($nombre) || empty($descripcion) || empty($es_personalizable) || empty($imagen) || empty($tipo)) {
+    echo "Debe completar todos los campos.";
+} else {
+    $sql = "UPDATE Producto SET Nombre=?, Descripcion=?, es_personalizable=?, Imagen=?, Tipo=? WHERE Id_producto=?";
+    $sentencia = $conn->prepare($sql);
+    $sentencia->bind_param("ssissi", $nombre, $descripcion, $es_personalizable, $imagen, $tipo, $id);
+    
+    if ($sentencia->execute()) {
+        echo "Se ha actualizado el producto con éxito.";
+    } else {
+        echo "Error al actualizar el producto: " . $sentencia->error;
+    }
+}
+
+echo "<br><br><a href='../index.html'>Inicio</a>";
+
+$conn->close();
+?>

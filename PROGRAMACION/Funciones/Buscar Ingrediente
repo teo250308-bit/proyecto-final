@@ -1,0 +1,35 @@
+<?php
+include "../conexion.php";
+
+$id = $_GET["id"];
+
+$sql = "SELECT * FROM Ingrediente WHERE Id_ingrediente = ?";
+$sentencia = $conn->prepare($sql);
+$sentencia->bind_param("i", $id);
+$sentencia->execute();
+$result = $sentencia->get_result();
+$fila = $result->fetch_assoc();
+
+if (empty($id)) {
+    echo "Debe ingresar el ID del ingrediente a buscar.";
+} elseif (!$fila) {
+    echo "El ingrediente no existe.";
+} else {
+    echo "ID: " . $fila["Id_ingrediente"] . " <br>";
+    echo "Nombre: " . $fila["Nombre"] . " <br>";
+    echo "Unidad: " . $fila["Unidad"] . " <br>";
+    echo "Gramos/Litros: " . $fila["Gramos_Litros"] . " <br>";
+    echo "Stock Actual: " . $fila["Stock_actual"] . " <br>";
+    echo "Stock Mínimo: " . $fila["Stock_minimo"] . " <br>";
+    echo "Fecha de Vencimiento: " . $fila["Fecha_vencimiento"] . " <br>";
+    echo "Calorías: " . $fila["Calorias"] . " <br>";
+    echo "Grasas: " . $fila["Grasas"] . " <br>";
+    echo "Proteínas: " . $fila["Proteinas"] . " <br>";
+    echo "Carbohidratos: " . $fila["Carbohidratos"] . " <br>";
+    echo "Mililitros: " . ($fila["Mililitros"] ?? "N/A") . " <br>";
+}
+
+echo "<br><br><a href='../index.html'>Inicio</a>";
+
+$conn->close();
+?>

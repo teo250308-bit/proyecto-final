@@ -1,0 +1,204 @@
+body {
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.container_gestion {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    padding: 10px;
+}
+
+th {
+    background: #2b9348;
+    color: white;
+}
+
+select {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-editar {
+    background-color: #0077b6;
+    color: white;
+}
+
+.btn-eliminar {
+    background-color: #d00000;
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #0096c7;
+}
+
+.btn-eliminar:hover {
+    background-color: #e63946;
+} */
+
+/* ======== CONFIGURACIÓN GLOBAL ========
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f3f4f6;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+/* ======== FORMULARIO ======== */
+.login-box2 {
+  background: #fff;
+  border-radius: 10px;
+  padding: 25px 30px;
+  width: 350px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.login-box2 h2 {
+  text-align: center;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+.campo2 {
+  margin-bottom: 15px;
+}
+
+.campo2 p {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #444;
+}
+
+.campo2 input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+.campo2 input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+input[type="submit"] {
+  background: #007bff;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+input[type="submit"]:hover {
+  background: #0056b3;
+}
+
+/* ======== TABLA DE USUARIOS ======== */
+h2 {
+  margin-bottom: 15px;
+  color: #222;
+}
+
+table {
+  width: 90%;
+  max-width: 1000px;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background: #007bff;
+  color: white;
+  text-align: left;
+}
+
+th, td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+tbody tr:hover {
+  background: #f8f9fa;
+}
+
+/* ======== BOTONES ======== */
+button {
+  background: #dc3545;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #b02a37;
+}
+
+/* ======== SELECT (ROL) ======== */
+select {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #f9f9f9;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+

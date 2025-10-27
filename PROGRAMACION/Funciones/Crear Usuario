@@ -1,0 +1,29 @@
+<?php
+<?php
+include "../conexion.php";
+
+$nombre_usuario = $_GET["nombre_usuario"];
+$contrasena = $_GET["contrasena"];
+
+if (empty($nombre_usuario) || empty($contrasena)) {
+    echo "Debe completar todos los campos.";
+} else {
+    // Hashear la contraseña para mayor seguridad
+    $contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT);
+
+    $sql = "INSERT INTO usuario (Nombre_usuario, Contrasena_hash) VALUES (?, ?);";
+    $sentencia = $conn->prepare($sql);
+    $sentencia->bind_param("ss", $nombre_usuario, $contrasena_hash);
+
+    if ($sentencia->execute()) {
+        echo "Se ha registrado el usuario con éxito. <br><br>";
+        echo "<a href='../login.html'>Ir a Iniciar Sesión</a>";
+    } else {
+        echo "Error al registrar el usuario: " . $sentencia->error;
+    }
+}
+
+echo "<br><br><a href='../index.html'>Inicio</a>";
+
+$conn->close();
+?>
