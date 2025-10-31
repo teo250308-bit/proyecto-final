@@ -47,7 +47,7 @@
         <form id="registerForm">
   <div class="campo">
     <p>Nombre</p>
-    <input type="text" name="nombre" placeholder="Nombre" required>
+    <input type="text" name="nombre" placeholder="solo letras de la A-Z" pattern="[A-Za-z]{4,25}" required>
   </div>
 
   <div class="campo">
@@ -62,7 +62,7 @@
 
   <div class="campo">
     <p>Contraseña</p>
-    <input type="password" name="password" placeholder="Contraseña" required>
+    <input type="password" pattern="[A-Za-Z1-9]{1,8}" name="password" placeholder="Contraseña" required>
   </div>
 
   <input type="submit" value="Registrarse">
