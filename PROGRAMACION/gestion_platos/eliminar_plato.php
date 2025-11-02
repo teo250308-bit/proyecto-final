@@ -1,5 +1,5 @@
 <?php
-require_once "conexion.php";
+require_once "../conexion.php";
 header("Content-Type: application/json");
 
 $data = json_decode(file_get_contents("php://input"), true);
@@ -9,11 +9,10 @@ if (!isset($data["id"])) {
 }
 
 try {
-    $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = :id");
+    $stmt = $conn->prepare("DELETE FROM Producto WHERE Id_producto = :id");
     $stmt->bindParam(":id", $data["id"]);
     $stmt->execute();
-
-    echo json_encode(["success" => true, "message" => "Usuario eliminado correctamente"]);
+    echo json_encode(["success" => true, "message" => "Plato eliminado correctamente"]);
 } catch (PDOException $e) {
     echo json_encode(["success" => false, "message" => "Error: " . $e->getMessage()]);
 }

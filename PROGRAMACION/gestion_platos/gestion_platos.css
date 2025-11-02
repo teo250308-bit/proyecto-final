@@ -1,0 +1,380 @@
+/* ===================== GLOBAL ===================== */
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f4f6f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+} */
+/* ===================== VARIABLES ===================== */
+:root{
+  --main-c:#FFC300;
+  --black-c:#000;
+  --grey-c:#576171;
+}
+
+/* ===================== BARRA SUPERIOR ===================== */
+
+.actions-bar {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.actions-bar h6 {
+  font-size: 60px;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ===================== BOTONES ===================== */
+.btn-primary {
+  background: var(--main-c);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .25s;
+}
+.btn-primary:hover { background: var(--main-c); }
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #111827;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .25s;
+}
+.btn-secondary:hover { background: #d1d5db; }
+
+.btn-danger {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .25s;
+}
+.btn-danger:hover { background: #b02a37; }
+
+/* ===================== MODAL ===================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 100;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  width: 100%;
+  max-width: 560px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.2);
+  padding: 22px;
+
+  /* 🔧 NUEVO: límites de altura y scroll interno */
+  max-height: 90vh;         /* nunca será más alta que el 90% del alto de la pantalla */
+  overflow-y: auto;         /* agrega scroll interno si el contenido sobrepasa */
+  scrollbar-width: thin;    /* estiliza scroll (Firefox) */
+  scrollbar-color: var(--main-c) #f4f6f9; /* colores del scroll */
+}
+
+@keyframes pop {
+  from { transform: scale(.97); opacity: .9; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.modal-actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* ===================== FORMULARIO ===================== */
+.campo2 {
+  margin-bottom: 18px;
+}
+
+.campo2 p {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #444;
+}
+
+.campo2 input,
+.campo2 textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: all 0.3s;
+  font-size: 15px;
+}
+
+.campo2 textarea {
+  resize: none;
+  height: 80px;
+}
+
+.campo2 input:focus,
+.campo2 textarea:focus {
+  border-color: var(--main-c);
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.img-preview {
+  margin-top: 8px;
+  width: 100%;
+  height: 140px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ===================== TABLA ===================== */
+table {
+  width: 100%;
+  max-width: 1100px;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+thead {
+  background: var(--main-c);
+  color: rgb(12, 12, 12);
+  text-align: left;
+}
+
+th, td {
+  padding: 14px 15px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  text-align: left;
+}
+
+tbody tr:hover {
+  background: #e9eaeb;
+}
+
+td img {
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* ===================== RESPONSIVE ===================== */
+
+/* Tablets */
+@media (max-width: 992px) {
+  table {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+
+  .actions-bar h1 {
+    font-size: 20px;
+  }
+
+  .modal {
+    max-width: 90%;
+  }
+}
+
+/* Celulares medianos */
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  .actions-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .actions-bar h1 {
+    font-size: 18px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+
+  td img {
+    width: 50px;
+    height: 50px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  .btn-primary, .btn-secondary, .btn-danger {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .modal {
+    padding: 15px;
+  }
+
+  .campo2 input, .campo2 textarea {
+    font-size: 14px;
+  }
+}
+
+/* Celulares pequeños */
+@media (max-width: 500px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+  }
+
+  td {
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--main-c);
+    flex-basis: 40%;
+    text-align: left;
+  }
+
+  td img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .modal {
+    max-width: 95%;
+  }
+
+  .actions-bar {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .actions-bar h1 {
+    font-size: 18px;
+    text-align: center;
+  }
+}
+/* ===================== MODAL CON EFECTO ===================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 100;
+
+  /* 🔥 Transición de aparición/desaparición */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* Cuando el modal está abierto */
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Animación interna del modal */
+.modal {
+  width: 100%;
+  max-width: 560px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  padding: 22px;
+
+  /* 🧠 Límite vertical y scroll interno */
+  max-height: 90vh;
+  overflow-y: auto;
+
+  /* 💫 Transición del propio modal */
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+/* Cuando se abre el modal */
+.modal-overlay.open .modal {
+  transform: translateY(0);
+  opacity: 1;
+}

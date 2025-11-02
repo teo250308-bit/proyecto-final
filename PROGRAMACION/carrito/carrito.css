@@ -1,0 +1,151 @@
+/* --- MODAL DE PAGO --- */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  text-align: left;
+}
+
+.close-btn {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-content input,
+.modal-content select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn-pagar {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-pagar:hover {
+  background-color: #3e8e41;
+}
+
+/* ============================
+   🛒 CARRITO RESPONSIVE
+   ============================ */
+
+#carrito-contenido table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#carrito-contenido th, #carrito-contenido td {
+  padding: 10px;
+}
+
+#carrito-contenido th {
+  background-color: var(--main-c);
+  color: #fff;
+  text-transform: uppercase;
+}
+
+#carrito-contenido img {
+  max-width: 80px;
+  border-radius: 6px;
+}
+
+#carrito-contenido button {
+  cursor: pointer;
+  border: none;
+  padding: 5px 8px;
+  font-size: 1rem;
+  background: transparent;
+}
+
+/* Botones de cantidad */
+#carrito-contenido button:hover {
+  transform: scale(1.1);
+}
+
+/* ====== MOBILE ====== */
+@media (max-width: 768px) {
+  #carrito-contenido table,
+  #carrito-contenido thead,
+  #carrito-contenido tbody,
+  #carrito-contenido th,
+  #carrito-contenido td,
+  #carrito-contenido tr {
+    display: block;
+    width: 100%;
+  }
+
+  #carrito-contenido thead {
+    display: none;
+  }
+
+  #carrito-contenido tr {
+    margin-bottom: 1.5rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 1rem;
+  }
+
+  #carrito-contenido td {
+    text-align: left;
+    padding: 0.5rem 0;
+    position: relative;
+    font-size: 1rem;
+  }
+
+  #carrito-contenido td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--main-c);
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  #carrito-contenido img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .btn-pagar {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  #carrito-contenido h3 {
+    font-size: 1.4rem;
+  }
+}

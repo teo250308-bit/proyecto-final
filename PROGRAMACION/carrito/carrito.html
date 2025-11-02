@@ -5,32 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="carrito.css">
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Poller+One&display=swap">
 </head>
-
 <body>
-  <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js"></script>
-  <script>
-    window.botpress.init({
-      "botId": "dad47222-0db5-4515-b8d6-e51ff833ae37",
-      "configuration": {
-        "version": "v1",
-        "botName": "Asistente de Marca",
-        "botDescription": "Puedo ayudarte con consultas sobre nuestros productos, políticas y horarios de atención.",
-        "color": "#FFC300",
-        "variant": "solid",
-        "headerVariant": "glass",
-        "themeMode": "light",
-        "fontFamily": "inter",
-        "radius": 4,
-        "feedbackEnabled": true,
-        "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)"
-      },
-      "clientId": "58b7db11-9d43-4910-acb1-2e027dc04c40"
-    });
-  </script>
-      
     <div class="wrap-header-hero">
 <header class="main-header">
   <div class="header-wrap">
@@ -49,11 +28,12 @@
         </label>
 
         <ul class="main-menu">
-          <li class="menu-item"><a href="">Inicio</a></li>
-          <li class="menu-item"><a href="">Menu</a></li>
-          <li class="menu-item"><a href="../index.html">logout</a></li>
-          <li id="nav-main-contact" class="menu-item"><a href="../contacto/contactov2.html">Contacto</a></li>
-          <li id="nav-main-contact2" class="menu-item"><a href="../carrito/carrito.html"><img src="../img/carito2.png" width="30px" height="30px"></a></li>
+          <li class="menu-item"><a href="../m_usuarios/index_usuarios.html">Inicio</a></li>
+          <!-- <li class="menu-item"><a href="">Menu</a></li> -->
+          <!-- <li class="menu-item"><a href="../PROGRAMACION/proceso_de_registro/registro.html">registrarse</a></li>
+          <li class="menu-item"><a href="../PROGRAMACION/porceso_de_login/login.html">iniciar sesion</a></li> -->
+          <li id="nav-main-contact" class="menu-item"><a href="../PROGRAMACION/contacto/contactov2.html">Contacto</a></li>
+          <!-- <li id="nav-main-contact2" class="menu-item"><a href="../PROGRAMACION/carrito/carritov2.html"><img src="img/carito2.png" width="30px" height="30px"></a></li> -->
         </ul>
 
       </nav>
@@ -62,18 +42,54 @@
  </header>
 
   <main class="main-section">
-
-  
-      <!-- Aquí van a ir todas las secciones -->
-      
-      <!-- Poner todo el código a partir de aquí -->
+     <div class="wrap-title-section">
+      <h2>🛒 Tu carrito</h2>
+    </div>
+  <!-- Aquí van a ir todas las secciones -->
+   <!-- Poner todo el código a partir de aquí -->
 <!-- Tarjetas de comida -->
-<div class="wrap-title-section">
-  <h2>Menus</h2>
-</div>  
-<section class="wrap section">
-    <div id="contenido-menu" class="column-4 columns"></div>
-</section>
+  <section class="wrap section">
+    <div id="carrito-contenido" class="card" style="text-align:center;">
+        <p>Cargando productos...</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- 🧾 Modal de pago -->
+  <div id="modal-pago" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>💳 Procesar Pago</h2>
+      <form id="form-pago">
+        <label>Nombre completo:</label>
+        <input type="text" id="nombre" required>
+
+        <label>Correo electrónico:</label>
+        <input type="email" id="correo" required>
+
+        <label>Método de pago:</label>
+        <select id="metodo" required>
+          <option value="">Seleccionar...</option>
+          <option value="tarjeta">Tarjeta de crédito/débito</option>
+          <option value="transferencia">Transferencia bancaria</option>
+          <option value="efectivo">Efectivo</option>
+        </select>
+
+        <div id="datos-tarjeta" style="display:none;">
+          <label>Número de tarjeta:</label>
+          <input type="text" maxlength="16" placeholder="XXXX XXXX XXXX XXXX">
+          <label>Fecha de vencimiento:</label>
+          <input type="month">
+          <label>CVV:</label>
+          <input type="text" maxlength="3" placeholder="123">
+        </div>
+
+        <button type="submit" class="btn-pagar">Confirmar pago</button>
+      </form>
+    </div>
+  </div>
+
+  </section>
   </main>
    <footer class="footer">
     <div class="wrap-footer">
@@ -123,13 +139,11 @@
         <ul>
           <li><a href="">Política de Privacidad</a></li>
           <li><a href="">Plítica de Cookies</a></li>
-          <li><a href="">Aviso Legal</a></li>
+          <li><a href="">Avisooo Legal</a></li>
         </ul>
       </div>
     </div>
   </footer>
-  <script src="index_usuarios.js"></script>
+<script src="carrito.js"></script>
 </body>
 </html>
-
- 

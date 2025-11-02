@@ -12,7 +12,7 @@ $stmt->execute([$email]);
 $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($resultado) {
-    if (password_verify($password, $resultado['pass'])) {
+    if (password_verify($password, $resultado['contrasena'])) {
         $_SESSION['email'] = $email;
         $_SESSION['rol'] = $resultado['rol'];
         $_SESSION['nombre'] = $resultado['nombre'];

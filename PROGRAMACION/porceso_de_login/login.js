@@ -16,9 +16,9 @@ const formLogin = document.getElementById('LoginForm');
                 console.log(data)
                 
                 if(data.success=="cliente"){
-                    window.location.href = "index_usuarios.html";
+                    window.location.href = "../m_usuarios/index_usuarios.html";
                 } else if(data.success=="admin"){
-                    window.location.href = "index_admin.html";
+                    window.location.href = "../m_admin/index_admin.html";
                 }  
                 
             
@@ -28,3 +28,26 @@ const formLogin = document.getElementById('LoginForm');
             alert("Error de conexión: " + error);
         }
     });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const datos = {
+    email: document.getElementById('email').value,
+    password: document.getElementById('password').value
+  };
+
+  const res = await fetch('../autocheck/login.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(datos),
+    credentials: 'include'
+  });
+
+  const data = await res.json();
+  alert(data.msg);
+
+  if (data.ok) {
+    window.location.href = '../m_usuarios/index_usuarios.html';
+  }
+});

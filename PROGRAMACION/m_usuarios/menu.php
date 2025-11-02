@@ -1,16 +1,14 @@
 <?php
-include 'conexion.php';
+header('Content-Type: application/json');
+include '../conexion.php';
 
-$sql = "SELECT * FROM Producto";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-
-$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-if ($resultado) {
-        echo json_encode ($resultado);
-} else {
-    echo json_encode (["data" => "No hay datos"]);
+try {
+    $sql = "SELECT * FROM Producto";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($resultado);
+} catch (PDOException $e) {
+    echo json_encode(["error" => $e->getMessage()]);
 }
-
 ?>

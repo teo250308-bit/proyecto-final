@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: formData
             })
             // si usan .then el php SIMPRE tiene que devolver JSON
-            .then(response => response.json()) 
+            .then(response => response.text()) 
             .then(data=>{
                 console.log(data)
                 if(data.success){
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     timer: 1500
                     });
                     setTimeout(() => {
-                        window.location.href = "login.html"}, 1600);
+                        window.location.href = "../porceso_de_login/login.html"}, 1600);
                 } else {
                     alert(data);
                 }
