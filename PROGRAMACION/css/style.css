@@ -1,0 +1,14 @@
+/* Master stylesheet: modular imports keeping original cascade order */
+@import url("./_variables.css");
+@import url("./_base.css");
+@import url("./_links-buttons.css");
+@import url("./_header.css");
+@import url("./_hero.css");
+@import url("./_cards.css");
+@import url("./_footer.css");
+@import url("./_titles.css");
+@import url("./_forms.css");
+@import url("./_pedidos.css");
+@import url("./_components.css");
+@import url("./_contact.css");
+

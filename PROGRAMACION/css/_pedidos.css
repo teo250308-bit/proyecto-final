@@ -1,0 +1,18 @@
+/*PEDIDOS*/
+.pedido {
+  
+  background-color: whitesmoke;
+  border-radius: 8px;
+  padding: 1rem .5rem;
+  display: flex;
+  align-items: end;
+height: 500px;
+width: 1200px;
+}
+
+.imgpedido {
+  position: relative;
+border-radius: 8%;
+
+}
+

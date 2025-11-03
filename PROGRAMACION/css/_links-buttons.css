@@ -1,0 +1,10 @@
+/* Enlaces & Botones*/
+
+.cta-main{
+  background-color: var(--main-c);
+  padding: 1rem 1rem ;
+  color: #fff;
+  font-size: bold;
+  border-radius: 2px;
+}
+

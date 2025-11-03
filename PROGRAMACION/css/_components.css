@@ -1,0 +1,62 @@
+/*SEGUNDA ENTREGA */
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+  margin-bottom: 15px;
+  color: #388e3c;
+}
+
+.card h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #2e7d32;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #66bb6a;
+  box-shadow: 0 0 5px rgba(102,187,106,0.5);
+}
+
+button {
+  background: var(--main-c);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* button:hover {
+  background: yellow;
+} */
+
+
+botpress-webchat-container  {
+  z-index: 100000;
+}
+
+footer {
+  text-align: center;
+  margin-top: 0; /* sin espacio extra antes del footer */
+  font-size: 0.9rem;
+  color: #777;
+}

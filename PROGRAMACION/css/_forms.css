@@ -1,0 +1,112 @@
+/* LOGIN & REGISTRO */
+.login-page {
+    background-color: var(--grey-c);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120vh;
+
+}
+
+.login-box {
+    position: relative;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--main-c);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+}
+
+.login-box2 {
+    position: relative;
+    /* margin-top: 10%; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);  /* 2 columnas ��' 2x2 si hay 4 div */
+    gap: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 850px;
+    /* width: 900px; */
+    text-align: center;
+}
+
+.login-box2 input, .login-box2 button {
+
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.login-box input, .login-box button {
+
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1rem;
+}
+.backbutton {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#registerForm {
+  width: 300px; /* podǸs ajustar */
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-family: Arial, sans-serif;
+}
+
+
+.campo2 p {
+  padding: 5px;
+  border: 1px ;
+  margin: 0 0 5px 0;
+  font-weight: bold;
+  text-align: left;
+}
+
+.campo2 input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+.campo p {
+  margin: 0 0 5px 0;
+  font-weight: bold;
+  text-align: left;
+}
+
+.campo input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
