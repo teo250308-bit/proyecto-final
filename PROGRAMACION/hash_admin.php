@@ -1,30 +1,31 @@
 <?php
-// Cargar conexión
-require 'conexion.php'; // Asegúrate que la ruta sea correcta
-// Si tu conexion.php está en otra carpeta, ajustá la ruta (ej: ../conexion.php)
+// Usar PDO para actualizar la contrasena del admin
+require 'conexion.php'; // Debe definir $conn (PDO)
 
-// Contraseña actual (en texto plano) del admin que querés hashear
-$old_password = '123456'; // cámbiala si tu admin usa otra contraseña
+// Contrasena actual (en texto plano) del admin a hashear
+$old_password = '123456'; // cambiala si tu admin usa otra contrasena
 
 // Generar hash seguro
 $hashed = password_hash($old_password, PASSWORD_DEFAULT);
 
-// Mostrar el hash generado en pantalla
+// Mostrar el hash generado
 echo "Hash generado:<br>$hashed<br><br>";
 
-// Verificar que la conexión exista
-if (!isset($conexion) || $conexion->connect_error) {
-    die("❌ Error de conexión: " . $conexion->connect_error);
-}
+try {
+    if (!isset($conn) || !($conn instanceof PDO)) {
+        throw new Exception('Conexion PDO no disponible');
+    }
 
-// Actualizar la contraseña del usuario admin
-$sql = "UPDATE usuarios SET contrasena = '$hashed' WHERE rol = 'admin'";
-if ($conexion->query($sql) === TRUE) {
-    echo "✅ Contraseña del administrador actualizada correctamente.";
-} else {
-    echo "❌ Error al actualizar: " . $conexion->error;
-}
+    $stmt = $conn->prepare("UPDATE usuarios SET contrasena = ? WHERE rol = 'admin'");
+    $stmt->execute([$hashed]);
 
-$conexion->close();
+    echo "Contrasena del administrador actualizada correctamente.";
+} catch (Throwable $e) {
+    echo "Error al actualizar: " . $e->getMessage();
+} finally {
+    // Liberar recursos PDO
+    if (isset($stmt)) { $stmt = null; }
+    if (isset($conn)) { $conn = null; }
+}
 ?>
 

@@ -1,11 +1,11 @@
 <?php
-require 'conexion.php';
+require '../conexion.php';
 
 // Sesión persistente (30 días)
 session_set_cookie_params([
   'lifetime' => 60 * 60 * 24 * 30,
   'path' => '/',
-  'secure' => false, // Cambiar a true en producción (HTTPS)
+  'secure' => false, // Cambiar a true con HTTPS
   'httponly' => true,
   'samesite' => 'Lax'
 ]);
@@ -16,23 +16,21 @@ $input = json_decode(file_get_contents("php://input"), true);
 $email = $input['email'] ?? '';
 $password = $input['password'] ?? '';
 
-$stmt = $conexion->prepare("SELECT id, contrasena FROM usuarios WHERE correo = ?");
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
+try {
+  $stmt = $conn->prepare("SELECT id, contrasena FROM usuarios WHERE correo = ?");
+  $stmt->execute([$email]);
+  $row = $stmt->fetch();
 
-if ($row = $result->fetch_assoc()) {
-  if (password_verify($password, $row['contrasena'])) {
+  if ($row && password_verify($password, $row['contrasena'])) {
     $_SESSION['user_id'] = $row['id'];
     session_regenerate_id(true);
     echo json_encode(["ok" => true, "msg" => "Login exitoso"]);
   } else {
-    echo json_encode(["ok" => false, "msg" => "Contraseña incorrecta"]);
+    echo json_encode(["ok" => false, "msg" => "Credenciales inválidas"]);
   }
-} else {
-  echo json_encode(["ok" => false, "msg" => "Usuario no encontrado"]);
+} catch (Throwable $e) {
+  http_response_code(500);
+  echo json_encode(["ok" => false, "msg" => "Error: " . $e->getMessage()]);
 }
-
-$stmt->close();
-$conexion->close();
 ?>
+

@@ -1,5 +1,16 @@
-INSERT INTO Producto (Nombre, Descripcion, Imagen, Precio, Tipo) VALUES ('Pizza Margarita','Clásica con albahaca y tomate.','pizza.jpg',580,'Principal');
-INSERT INTO Producto (Nombre, Descripcion, Imagen, Precio, Tipo) VALUES ('Pollo con verduras','Salteado de pollo y vegetales.','pollo_verduras.png',450,'Principal');
-INSERT INTO Producto (Nombre, Descripcion, Imagen, Precio, Tipo) VALUES ('Hamburguesa Veggie','Lentejas y verduras.','burger_lentejas.png',390,'Principal');
-INSERT INTO Producto (Nombre, Descripcion, Imagen, Precio, Tipo) VALUES ('Carne con papas','Clásico casero.','Carne_con_papas.jpg',520,'Principal');
-INSERT INTO Producto (Nombre, Descripcion, Imagen, Precio, Tipo) VALUES ('Jugo Natural','Naranja recién exprimida.','https://example.com/jugo.jpg',180,'Bebida');
+INSERT INTO Producto (Nombre, Descripcion, Imagen, Precio, Tipo) VALUES
+('Pizza Margarita','Clásica con albahaca y tomate.','pizza.jpg',580,'Principal'),
+('Pollo con verduras','Salteado de pollo y vegetales.','pollo_verduras.png',450,'Principal'),
+('Hamburguesa Veggie','Lentejas y verduras.','burger_lentejas.png',390,'Principal'),
+('Carne con papas','Clásico casero.','Carne_con_papas.jpg',520,'Principal'),
+('Jugo Natural','Naranja recién exprimida.','https://example.com/jugo.jpg',180,'Bebida'),
+('Milanesa de Pollo al Horno', 'Milanesa de pollo al horno con pan rallado integral y acompañada de puré de zapallo.', 'Gemini_Generated_Image_4lzaeg4lzaeg4lza.png', 230, 'Plato Principal'),
+('Chivito Light', 'Chivito con carne magra, pan integral, lechuga, tomate y huevo a la plancha sin aceite.', 'Gemini_Generated_Image_wv86q8wv86q8wv86 (1).png', 260, 'Plato Principal'),
+('Empanadas Integrales de Verdura', 'Empanadas horneadas con masa integral y relleno de espinaca, ricota y zanahoria.', 'Gemini_Generated_Image_wv86q8wv86q8wv86 (2).png', 180, 'Plato Principal'),
+('Tarta de Acelga Light', 'Tarta casera con masa integral y relleno de acelga, cebolla y queso magro.', 'Gemini_Generated_Image_wv86q8wv86q8wv86 (3).png', 190, 'Plato Principal'),
+('Ensalada Criolla', 'Tomate, cebolla, morrón y orégano fresco con aceite de oliva.', 'Gemini_Generated_Image_wv86q8wv86q8wv86 (4).png', 130, 'Ensalada'),
+('Revuelto Gramajo Saludable', 'Papas al horno, huevo, cebolla, arvejas y jamón magro.', 'Gemini_Generated_Image_wv86q8wv86q8wv86 (5).png', 210, 'Plato Principal'),
+('Sopa de Calabaza y Zanahoria', 'Sopa cremosa con calabaza, zanahoria y un toque de jengibre.', 'Gemini_Generated_Image_wv86q8wv86q8wv86 (6).png', 160, 'Sopa'),
+('Bowl de Lentejas Criollas', 'Lentejas con zapallo, cebolla, zanahoria y especias suaves.', 'Gemini_Generated_Image_wv86q8wv86q8wv86 (7).png', 190, 'Plato Principal'),
+('Hamburguesa Casera de Carne Magra', 'Hamburguesa de carne magra con pan integral, lechuga, tomate y aderezo natural.', 'Gemini_Generated_Image_wv86q8wv86q8wv86 (8).png', 220, 'Plato Principal'),
+('Panqueques de Espinaca', 'Panqueques verdes rellenos de ricota y verduras al vapor.', 'Gemini_Generated_Image_wv86q8wv86q8wv86.png', 160, 'Plato Principal');
