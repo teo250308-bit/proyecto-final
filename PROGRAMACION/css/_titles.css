@@ -5,3 +5,13 @@
     font-size: 300%;
 }
 
+/* Usar la tipograf de marca (NUTRANT) en los ttulos */
+.wrap-title-section h1,
+.wrap-title-section h2,
+.gallery-title,
+.brand-title{
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+

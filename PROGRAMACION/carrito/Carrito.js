@@ -226,7 +226,22 @@ function vaciarCarrito() {
 }
 
 // --- Modal de pago ---
-function abrirPago() {
+async function checkAuthCart() {
+  try {
+    const r = await fetch('../autocheck/auth_check.php', { credentials: 'include' });
+    if (!r.ok) return false;
+    const j = await r.json();
+    return j.auth === true;
+  } catch { return false; }
+}
+
+async function abrirPago() {
+  const ok = await checkAuthCart();
+  if (!ok) {
+    alert('Inicia sesión para finalizar tu compra.');
+    location.href = '../porceso_de_login/login.html';
+    return;
+  }
   modal.style.display = "flex";
 }
 

@@ -16,6 +16,7 @@ try {
         $_SESSION['email'] = $email;
         $_SESSION['rol'] = $resultado['rol'];
         $_SESSION['nombre'] = $resultado['nombre'];
+        if (isset($resultado['id'])) { $_SESSION['user_id'] = $resultado['id']; }
         echo json_encode(["success" => $resultado['rol']]);
     } else {
         echo json_encode(["Error" => "Credenciales inválidas."]);
@@ -25,4 +26,3 @@ try {
     echo json_encode(["Error" => $e->getMessage()]);
 }
 ?>
-

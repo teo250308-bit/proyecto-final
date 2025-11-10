@@ -27,7 +27,7 @@
   color: #fff;
   padding: .5rem;
   border-radius: 6px;
-  background:linear-gradient(to top, rgb(0 0 0 / .5), rgb(0 0 0 / .5));
+  background:linear-gradient(to top, rgba(0, 0, 0, 0.103), rgba(0, 0, 0, 0.212));
 }
 
 .wrap-text_tarjeta-rest p{

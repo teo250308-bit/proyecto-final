@@ -1,6 +1,6 @@
 drop database if exists proyecto;
 create database proyecto;
-use proyecto;
+use proyecto; 
 
 CREATE TABLE Usuario (
     Id_usuario INT PRIMARY KEY AUTO_INCREMENT,

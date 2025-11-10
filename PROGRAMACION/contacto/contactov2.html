@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -8,28 +8,29 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap">
 </head>
 <body>
+  <div id="botpress-webchat-container"></div>
+  <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js"></script>
+  <script>
+    window.botpress.init({
+      "botId": "dad47222-0db5-4515-b8d6-e51ff833ae37",
+      "configuration": { "version": "v1", "botName": "Asistente de Marca", "color": "#FFC300" },
+      "clientId": "58b7db11-9d43-4910-acb1-2e027dc04c40"
+    });
+  </script>
+
   <div class="wrap-header-hero contact-wrap">
     <header class="main-header">
       <div class="header-wrap">
-        <div class="wrap-logo-header">
-          <a class="logo-header" href="../index.html">NUTRANT</a>
-        </div>
+        <div class="wrap-logo-header"><a class="logo-header" href="../index.html">NUTRANT</a></div>
         <div class="wrap-nav-header">
           <nav class="nav-header">
-            <input type="checkbox" id="check">
-            <label for="check" class="checkbtn">
-              <i class="toggle-menu">
-                <img src="img/menu.svg" alt="menu">
-              </i>
-            </label>
+            <input type="checkbox" id="check"><label for="check" class="checkbtn"><i class="toggle-menu"></i></label>
             <ul class="main-menu">
               <li class="menu-item"><a href="../index.html">Inicio</a></li>
               <li class="menu-item"><a href="../nosotros/index.html">Nosotros</a></li>
-              <li class="menu-item"><a href="#">Menú</a></li>
+              <li class="menu-item"><a href="../index_base.html">Menú</a></li>
               <li class="menu-item"><a href="../proceso_de_registro/registro.html">Registrarse</a></li>
               <li class="menu-item"><a href="../porceso_de_login/login.html">Iniciar sesión</a></li>
-              <!-- <li id="nav-main-contact" class="menu-item"><a href="contacto.html">Contacto</a></li> -->
-              <!-- <li id="nav-main-contact2" class="menu-item"><a href="carritov2.html"><img src="img/carito2.png" width="30px" height="30px"></a></li> -->
             </ul>
           </nav>
         </div>
@@ -38,7 +39,7 @@
 
     <section class="hero-home-page contact-hero">
       <div class="wrap-hero-home-page">
-        <h1>Contactanos</h1>
+        <h1>Contáctanos</h1>
         <p>¿Tenés alguna consulta, sugerencia o pedido especial? Completá el formulario y te responderemos a la brevedad.</p>
       </div>
     </section>
@@ -46,43 +47,36 @@
     <section class="section contacto-section">
       <div class="contact-container">
         <div class="contact-info">
-          <h2>Información de contacto</h2>
+          <h2>Información De Contacto</h2>
           <p><strong>Dirección:</strong> Avenida Italia 4567</p>
           <p><strong>Teléfono:</strong> 094 313 727</p>
           <p><strong>Email:</strong> contacto@nutrant.com</p>
           <p><strong>Horario:</strong> Lunes a Viernes de 9:00 a 18:00</p>
         </div>
-       <div class="contact-form">
-      <form class="contact-form" action="enviar_mensaje.php" method="POST">
-        <h2>Enviá tu mensaje</h2>
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
-
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" name="email" placeholder="Tu correo" required>
-
-        <label for="mensaje">Mensaje</label>
-        <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribí tu mensaje..." required></textarea>
-
-        <button type="submit">Enviar</button>
-        </form>
+        <div class="contact-form">
+          <form class="contact-form" action="enviar_mensaje.php" method="POST">
+            <h2>Enviá Tu Mensaje</h2>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" placeholder="Tu correo" required>
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribí tu mensaje..." required></textarea>
+            <button type="submit">Enviar</button>
+          </form>
         </div>
       </div>
     </section>
   </div>
 
-  <main class="main-sectio">
-  
-  </main>
-
   <footer class="footer">
     <div class="wrap-footer">
       <div class="text-element-footer element-footer">
         <h3>Restaurante</h3>
-        <p>En NUTRANT fusionamos sabor y calidad en cada plato. Visitános o pedí online.</p>
+        <p>En NUTRANT fusionamos sabor y calidad en cada plato. Visítanos o pedí online.</p>
       </div>
       <div class="text-element-footer element-footer">
-                <h5>Dirección</h5>
+        <h5>Dirección</h5>
         <ul>
           <li>Avenida Italia 4567</li>
           <li>Montevideo, Uruguay</li>
@@ -94,31 +88,14 @@
         <ul>
           <li><a href="../index.html">Inicio</a></li>
           <li><a href="../nosotros/index.html">Nosotros</a></li>
-          <li><a href="#">Carta</a></li>
+          <li><a href="../index_base.html">Carta</a></li>
           <li><a href="../contacto/contactov2.html">Contacto</a></li>
-        </ul>
-      </div>
-      <div class="rrss-element-footer element-footer">
-        <h5>Redes Sociales</h5>
-        <ul>
-          <li><a href="/"><img src="../img/whatsapp.png" alt="icono redes sociales"></a></li>
-          <li><a href=""><img src="../img/twitter.png" alt="icono redes sociales"></a></li>
-          <li><a href=""><img src="../img/instagram.png" alt="icono redes sociales"></a></li>
         </ul>
       </div>
     </div>
     <div class="footer-creds">
-      <div class="copy-creds">
-        <p>©2025 · Todos los derechos reservados.</p>
-      </div>
-      <div class="legal-creds">
-        <ul>
-          <li><a href="#">Política de Privacidad</a></li>
-          <li><a href="#">Aviso Legal</a></li>
-        </ul>
-      </div>
+      <div class="copy-creds"><p>© 2025 – Todos los derechos reservados.</p></div>
     </div>
   </footer>
 </body>
 </html>
-

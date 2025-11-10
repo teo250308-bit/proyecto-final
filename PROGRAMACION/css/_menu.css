@@ -1,0 +1,40 @@
+/* Menu page wrapper and overrides */
+.menu-page{
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.25) 0, rgba(0,0,0,0) 120px),
+    #f3dfc4;
+  padding: 2.5rem 1rem 3rem;
+}
+
+.menu-container{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu-page .wrap-title-section{
+  color: #222;
+  margin-bottom: 2.5rem;
+}
+
+/* Make cards a bit shorter on menu page */
+.menu-page .tarjeta-rest{
+  height: 320px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+
+.menu-page .wrap-text_tarjeta-rest{
+  background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.15));
+  border-radius: 10px;
+}
+
+/* Grid tweaks */
+.menu-page .column-4{
+  column-gap: 1.25rem;
+  row-gap: 1.25rem;
+}
+
+@media (max-width: 640px){
+  .menu-page .tarjeta-rest{ height: 260px; }
+}
+

@@ -1,16 +1,15 @@
 <?php
 header('Content-Type: application/json');
+session_start();
 include '../conexion.php';
 
 try {
-    $json = file_get_contents("php://input");
-    $data = json_decode($json, true);
-    $id_usuario = $data['id_usuario'] ?? null;
-
-    if (!$id_usuario) {
-        echo json_encode(["error" => "Falta id_usuario"]);
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(["error" => "No autenticado"]);
         exit;
     }
+    $id_usuario = $_SESSION['user_id'];
 
     $sql = "SELECT c.Id_producto, p.Nombre, p.Precio, c.Cantidad,
                    (p.Precio * c.Cantidad) AS Subtotal

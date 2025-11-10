@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Menú | NUTRANT</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Poller+One&display=swap">
 </head>
 
 <body>
+  <div id="botpress-webchat-container"></div>
   <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js"></script>
   <script>
     window.botpress.init({
@@ -17,7 +18,7 @@
       "configuration": {
         "version": "v1",
         "botName": "Asistente de Marca",
-        "botDescription": "Puedo ayudarte con consultas sobre nuestros productos, políticas y horarios de atención.",
+        "botDescription": "Puedo ayudarte con consultas sobre nuestros productos, Políticas y horarios de atención.",
         "color": "#FFC300",
         "variant": "solid",
         "headerVariant": "glass",
@@ -35,7 +36,7 @@
 <header class="main-header">
   <div class="header-wrap">
     <div class="wrap-logo-header">
-      <a class="logo-header" href="/">
+      <a class="logo-header" href="../index.html">
         NUTRANT
       </a>
     </div>
@@ -49,12 +50,12 @@
         </label>
 
         <ul class="main-menu">
-          <li class="menu-item"><a href="">Inicio</a></li>
-          <li class="menu-item"><a href="">Menu</a></li>
-          <li class="menu-item"><a href="../index.html">logout</a></li>
+          <li class="menu-item"><a href="../index.html">Inicio</a></li>
+          <li class="menu-item"><a href="../index_base.html">Menú</a></li>
+          <li class="menu-item"><a href="../porceso_de_login/login.html">Iniciar sesión</a></li>
           <li class="menu-item"><a href="../nosotros/index.html">Nosotros</a></li>
           <li id="nav-main-contact" class="menu-item"><a href="../contacto/contactov2.html">Contacto</a></li>
-          <li id="nav-main-contact2" class="menu-item"><a href="../carrito/carrito.html"><img src="../img/carito2.png" width="30px" height="30px"></a></li>
+          <li id="nav-main-contact2" class="menu-item"><a href="../carrito/carrito.html"><img src="../img/carito2.png" width="30" height="30" alt="Carrito"></a></li>
         </ul>
 
       </nav>
@@ -62,20 +63,19 @@
   </div>
  </header>
 
-  <main class="main-section">
-
-  
-      <!-- Aquí van a ir todas las secciones -->
-      
-      <!-- Poner todo el código a partir de aquí -->
-<!-- Tarjetas de comida -->
-<div class="wrap-title-section">
-  <h2>Menus</h2>
-</div>  
-<section class="wrap section">
-    <div id="contenido-menu" class="column-4 columns"></div>
-</section>
-  </main>
+<main class="main-section">
+  <div class="menu-page">
+    <div class="menu-container">
+      <section class="wrap section">
+        <div class="wrap-title-section">
+          <h1><u>Menú</u></h1>
+        </div>
+        <div class="wrap-title-section"><h2>Todos</h2></div>
+        <div id="contenido-menu" class="column-4 columns"></div>
+      </section>
+    </div>
+  </div>
+</main>
    <footer class="footer">
     <div class="wrap-footer">
       <div class="text-element-footer element-footer">
@@ -122,7 +122,7 @@
       <div class="legal-creds">
         <ul>
           <li><a href="">Política de Privacidad</a></li>
-          <li><a href="">Plítica de Cookies</a></li>
+          <li><a href="">Política de Cookies</a></li>
           <li><a href="">Aviso Legal</a></li>
         </ul>
       </div>
@@ -133,4 +133,8 @@
 </html>
 
  
+
+
+
+
 

@@ -34,6 +34,16 @@
 // })  
 
 const contenido = document.getElementById("contenido-menu");
+const base = '../';
+
+async function requireAuth() {
+  try {
+    const r = await fetch(`${base}autocheck/auth_check.php`, { credentials: 'include' });
+    if (!r.ok) return false;
+    const j = await r.json();
+    return j.auth === true;
+  } catch { return false; }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch("menu.php")
@@ -84,7 +94,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Activar eventos para cada botón
       document.querySelectorAll(".btn-pedir").forEach(btn => {
-        btn.addEventListener("click", (e) => {
+        btn.addEventListener("click", async (e) => {
+          const ok = await requireAuth();
+          if (!ok) {
+            alert('Inicia sesión para pedir.');
+            location.href = `${base}porceso_de_login/login.html`;
+            return;
+          }
           const producto = {
             id: e.target.dataset.id,
             nombre: e.target.dataset.nombre,
@@ -92,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
             imagen: e.target.dataset.imagen,
             cantidad: 1
           };
-
           agregarAlCarrito(producto);
         });
       });

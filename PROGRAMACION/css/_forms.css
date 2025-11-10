@@ -1,15 +1,16 @@
 /* LOGIN & REGISTRO */
 .login-page {
-    background-color: var(--grey-c);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 120vh;
-
+  /* Fondo transparente para dejar ver la imagen del hero */
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .login-box {
     position: relative;
+    z-index: 1;
     margin-top: 10%;
     margin-left: auto;
     margin-right: auto;
