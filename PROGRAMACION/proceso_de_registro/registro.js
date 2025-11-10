@@ -17,9 +17,9 @@ formReg.addEventListener('submit', function(e) {
         console.log(data);
         if (data.success) {
           Swal.fire({
-            position: 'top-end',
+            position: 'center',
             icon: 'success',
-            title: 'Your work has been saved',
+            title: 'Registro exitoso!!',
             showConfirmButton: false,
             timer: 1500
           });

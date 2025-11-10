@@ -17,14 +17,16 @@ $email = $input['email'] ?? '';
 $password = $input['password'] ?? '';
 
 try {
-  $stmt = $conn->prepare("SELECT id, contrasena FROM usuarios WHERE correo = ?");
+  $stmt = $conn->prepare("SELECT id, nombre, correo, contrasena FROM usuarios WHERE correo = ?");
   $stmt->execute([$email]);
   $row = $stmt->fetch();
 
   if ($row && password_verify($password, $row['contrasena'])) {
     $_SESSION['user_id'] = $row['id'];
+    $_SESSION['nombre'] = $row['nombre'] ?? null;
+    $_SESSION['email'] = $row['correo'] ?? null;
     session_regenerate_id(true);
-    echo json_encode(["ok" => true, "msg" => "Login exitoso"]);
+    echo json_encode(["ok" => true, "msg" => "Login exitoso", "nombre" => ($row['nombre'] ?? null), "email" => ($row['correo'] ?? null)]);
   } else {
     echo json_encode(["ok" => false, "msg" => "Credenciales inválidas"]);
   }
@@ -33,4 +35,3 @@ try {
   echo json_encode(["ok" => false, "msg" => "Error: " . $e->getMessage()]);
 }
 ?>
-

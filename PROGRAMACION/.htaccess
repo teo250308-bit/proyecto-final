@@ -1,0 +1,6 @@
+AddDefaultCharset utf-8
+# No forzar Content-Type global: rompe CSS/JS y JSON
+# Si necesitás tipar, usar AddType específico por extensión.
+# Ejemplos seguros (opcional):
+# AddType text/css; charset=UTF-8 .css
+# AddType application/javascript; charset=UTF-8 .js

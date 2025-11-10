@@ -17,7 +17,7 @@
       "configuration": {
         "version": "v1",
         "botName": "Asistente de Marca",
-        "botDescription": "Puedo ayudarte con consultas sobre nuestros productos, políticas y horarios de atención.",
+        "botDescription": "Puedo ayudarte con consultas sobre nuestros productos, Pol&iacute;ticas y horarios de atenci�n.",
         "color": "#FFC300",
         "variant": "solid",
         "headerVariant": "glass",
@@ -46,9 +46,9 @@
             </label>
             <ul class="main-menu">
               <li class="menu-item"><a href="index.html">Inicio</a></li>
-              <li class="menu-item"><a href="index_base.html">Menú</a></li>
+              <li class="menu-item"><a href="index_base.html">Men&uacute;</a></li>
               <li class="menu-item"><a href="proceso_de_registro/registro.html">Registrarse</a></li>
-              <li class="menu-item"><a href="porceso_de_login/login.html">Iniciar sesión</a></li>
+              <li class="menu-item"><a href="porceso_de_login/login.html">Iniciar sesi&oacute;n</a></li>
               <li class="menu-item"><a href="nosotros/index.html">Nosotros</a></li>
               <li id="nav-main-contact" class="menu-item"><a href="contacto/contactov2.html">Contacto</a></li>
               <li id="nav-main-contact2" class="menu-item"><a href="carrito/carrito.html"><img src="img/carito2.png" width="30" height="30" alt="Carrito"/></a></li>
@@ -64,7 +64,7 @@
       <div class="menu-container">
         <section class="wrap section">
           <div class="wrap-title-section">
-            <h1><u>Menú</u></h1>
+            <h1><u>Men&uacute;</u></h1>
           </div>
           <div class="menu-sections">
             <div class="wrap-title-section"><h2>Comidas</h2></div>
@@ -88,7 +88,7 @@
         <p>En NUTRANT trabajamos con ingredientes frescos y recetas pensadas para todos los gustos. Queremos que disfrutes tu comida de forma rica, accesible y saludable.</p>
       </div>
       <div class="text-element-footer element-footer">
-        <h5>Dirección</h5>
+        <h5>Direcci&oacute;n</h5>
         <ul>
           <li>Avenida Italia 4567</li>
           <li>Montevideo, Uruguay</li>
@@ -96,7 +96,7 @@
         </ul>
       </div>
       <div class="text-element-footer element-footer">
-        <h5>Más información</h5>
+        <h5>M&aacute;s informaci&oacute;n</h5>
         <ul>
           <li><a href="index.html">Inicio</a></li>
           <li><a href="nosotros/index.html">Nosotros</a></li>
@@ -116,18 +116,55 @@
     </div>
     <div class="footer-creds">
       <div class="copy-creds">
-        <p>© 2025 – Todos los derechos reservados.</p>
+        <p>&copy; ©2025 © Todos los derechos reservados.</p>
       </div>
       <div class="legal-creds">
         <ul>
-          <li><a href="#">Política de Privacidad</a></li>
-          <li><a href="#">Política de Cookies</a></li>
+          <li><a href="#">Politica de Privacidad</a></li>
+          <li><a href="#">Politica de Cookies</a></li>
           <li><a href="#">Aviso Legal</a></li>
         </ul>
       </div>
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.23.0/dist/sweetalert2.all.min.js"></script>
   <script src="menu.js"></script>
-</body>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const r = await fetch('autocheck/auth_check.php', { credentials: 'include' });
+      if (!r.ok) return; const j = await r.json(); if (!j.auth) return;
+      const nav = document.querySelector('.main-menu'); if (!nav) return;
+      const add = (id, html) => { if (!document.getElementById(id)) { const li = document.createElement('li'); li.className='menu-item'; li.innerHTML = html; nav.appendChild(li); } };
+      add('nav-user-link', '<a id="nav-user-link" href="m_usuarios/index_usuarios.html">Mi Cuenta</a>');
+      add('nav-edit-link', '<a id="nav-edit-link" href="usuario/perfil.html">Editar Perfil</a>');
+      add('nav-logout-link', '<a id="nav-logout-link" href="#">Cerrar sesión</a>');
+      const out = document.getElementById('nav-logout-link'); if (out) out.addEventListener('click', async (e)=>{ e.preventDefault(); try { await fetch('autocheck/logout.php', { credentials:'include' }); } catch{} try { localStorage.clear(); } catch{} location.href = 'index.html'; });
+    } catch {}
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const r = await fetch('autocheck/auth_check.php', { credentials: 'include' });
+      if (!r.ok) return; const j = await r.json(); if (!j.auth) return;
+      document.querySelectorAll('.main-menu a').forEach(a => {
+        const h = (a.getAttribute('href')||'').toLowerCase();
+        if (h.includes('porceso_de_login') || h.includes('proceso_de_registro')) {
+          const li = a.closest('li'); if (li) li.style.display = 'none';
+        }
+      });
+      const out = document.getElementById('nav-logout-link'); if (out) out.textContent = 'Cerrar sesión';
+    } catch {}
+  });
+</script></body>
 </html>
+
+
+
+
+
+
+
+
+

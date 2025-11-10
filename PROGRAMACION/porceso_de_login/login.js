@@ -1,4 +1,4 @@
-const formLogin = document.getElementById('LoginForm');
+﻿const formLogin = document.getElementById('LoginForm');
 
 
  formLogin.addEventListener('submit', function(e) {
@@ -15,21 +15,39 @@ const formLogin = document.getElementById('LoginForm');
             
                 console.log(data)
                 
-                if(data.success=="cliente"){
-                    window.location.href = "../m_usuarios/index_usuarios.html";
-                } else if(data.success=="admin"){
-                    window.location.href = "../m_admin/index_admin.html";
+                if(data.success==="cliente"){
+                    try {
+                      const nombre = data.nombre || data.usuario || data.email || 'Usuario';
+                      localStorage.setItem('user_nombre', nombre);
+                    } catch {}
+                    Swal.fire({ position: 'center', icon: 'success', title: 'Login exitoso!!' })
+                      .then(()=>{ window.location.href = "../m_usuarios/index_usuarios.html"; });
+                } else if(data.success==="admin"){
+                    Swal.fire({ position: 'center', icon: 'success', title: 'Login exitoso!!' })
+                      .then(()=>{ window.location.href = "../m_admin/index_admin.html"; });
+                } else {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Algo salio mal!!',
+                      footer: '<a href="../contacto/contactov2.html">Contactate con nosotros</a>'
+                    });
                 }  
                 
             
             })
 
         } catch (error) {
-            alert("Error de conexión: " + error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Algo salio mal!!',
+              footer: '<a href="../contacto/contactov2.html">Contactate con nosotros</a>'
+            });
         }
     });
 
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    const loginFormAlt = document.getElementById('loginForm'); if (loginFormAlt) loginFormAlt.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const datos = {
@@ -45,9 +63,20 @@ const formLogin = document.getElementById('LoginForm');
   });
 
   const data = await res.json();
-  alert(data.msg);
-
   if (data.ok) {
-    window.location.href = '../m_usuarios/index_usuarios.html';
+    try {
+      const nombre = data.nombre || data.usuario || data.email || 'Usuario';
+      localStorage.setItem('user_nombre', nombre);
+    } catch {}
+    Swal.fire({ position: 'center', icon: 'success', title: 'Login exitoso!!' })
+      .then(()=>{ window.location.href = '../m_usuarios/index_usuarios.html'; });
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: data.msg || 'Algo salio mal!!',
+      footer: '<a href="../contacto/contactov2.html">Contactate con nosotros</a>'
+    });
   }
 });
+

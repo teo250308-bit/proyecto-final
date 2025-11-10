@@ -1,11 +1,28 @@
 <?php
 session_start();
+header('Content-Type: application/json; charset=utf-8');
 
-if (!isset($_SESSION['user_id'])) {
-  http_response_code(401);
+$auth = isset($_SESSION['user_id']);
+
+if (!$auth) {
+  http_response_code(200);
   echo json_encode(["auth" => false]);
   exit;
 }
 
-echo json_encode(["auth" => true, "user_id" => $_SESSION['user_id']]);
+$payload = [
+  "auth" => true,
+  "user_id" => $_SESSION['user_id']
+];
+
+// Intenta enviar también el nombre si existe en la sesión
+if (isset($_SESSION['nombre']) && $_SESSION['nombre']) {
+  $payload['nombre'] = $_SESSION['nombre'];
+} elseif (isset($_SESSION['usuario']) && $_SESSION['usuario']) {
+  $payload['usuario'] = $_SESSION['usuario'];
+} elseif (isset($_SESSION['email']) && $_SESSION['email']) {
+  $payload['email'] = $_SESSION['email'];
+}
+
+echo json_encode($payload, JSON_UNESCAPED_UNICODE);
 ?>

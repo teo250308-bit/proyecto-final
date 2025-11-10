@@ -17,7 +17,7 @@
       "configuration": {
         "version": "v1",
         "botName": "Asistente de Marca",
-        "botDescription": "Puedo ayudarte con consultas sobre nuestros productos, polÃ­ticas y horarios de atenciÃ³n.",
+        "botDescription": "Puedo ayudarte con consultas sobre nuestros productos, políticas y horarios de atención.",
         "color": "#FFC300",
         "variant": "solid",
         "headerVariant": "glass",
@@ -48,7 +48,7 @@
         </label>
         <ul class="main-menu">
           <li class="menu-item"><a href="">Inicio</a></li>
-          <li class="menu-item"><a href="index_base.html">Menu</a></li>
+          <li class="menu-item"><a href="index_base.html">Menú</a></li>
           <li class="menu-item"><a href="../PROGRAMACION/proceso_de_registro/registro.html">Registrarse</a></li>
           <li class="menu-item"><a href="../PROGRAMACION/porceso_de_login/login.html">Iniciar sesion</a></li>
           <li class="menu-item"><a href="nosotros/index.html">Nosotros</a></li>
@@ -70,9 +70,9 @@
   <main class="main-section">
 
   
-      <!-- AquÃ­ van a ir todas las secciones -->
+      <!-- Aquí van a ir todas las secciones -->
       
-      <!-- Poner todo el cÃ³digo a partir de aquÃ­ -->
+      <!-- Poner todo el código a partir de aquí -->
 <!-- Tarjetas de comida -->
     <section class="gallery-section">
     <h2 class="gallery-title">Galer&iacute;a De Fotos</h2>
@@ -81,7 +81,7 @@
       <figure><img src="img/restaurante.jpg" alt="Pizza"></figure>
       <figure><img src="img/restaurante2.png" alt="Pizza con tomate y albahaca"></figure>
       <figure><img src="img/ensalada.png" alt="Ensalada"></figure>
-      <figure><img src="img/hamburgusas2.png" alt="Hamburguesa"></figure>
+      <figure><img src="img/hamburguesas2.png" alt="Hamburguesa"></figure>
       <figure><img src="img/chef1.jpg" alt="Cocina 1"></figure>
       <figure><img src="img/dueños.jpg" alt="Cocina 2"></figure>
       <figure><img src="img/restaurante3.jpg" alt="Cocina 3"></figure>
@@ -95,7 +95,7 @@
       <div class="news-content">
         <div>
           <h3>Nuestra App</h3>
-          <p>Descargala en tu tienda y obtenÃ© descuentos.</p>
+          <p>Descargala en tu tienda y obtené descuentos.</p>
         </div>
       </div>
     </article>
@@ -104,7 +104,7 @@
       <div class="news-content">
         <div>
           <h3>Nueva Barra De Tragos</h3>
-          <p>Veni a conocerla y probÃ¡ nuestros clÃ¡sicos.</p>
+          <p>Vení a conocerla y probá nuestros clásicos.</p>
         </div>
       </div>
     </article>
@@ -131,7 +131,7 @@
         <p>En NUTRANT trabajamos con ingredientes frescos y recetas pensadas para todos los gustos. Queremos que disfrutes tu comida de forma rica, accesible y saludable.</p>
       </div>
       <div class="text-element-footer element-footer">
-        <h5>DirecciÃ³n</h5>
+        <h5>Dirección</h5>
         <ul>
           <li>Avenida Italia 4567</li>
           <li>Montevideo, Uruguay</li>
@@ -139,7 +139,7 @@
         </ul>
       </div>
       <div class="text-element-footer element-footer">
-        <h5>MÃ¡s informaciÃ³n</h5>
+        <h5>Más información</h5>
         <ul>
           <li><a href="/">Inicio</a></li>
           <li><a href="nosotros/index.html">Nosotros</a></li>
@@ -165,12 +165,12 @@
     </div>
     <div class="footer-creds">
       <div class="copy-creds">
-        <p>Â© 2025 –Â· Todos los derechos reservados.</p>
+        <p>© 2025 — Todos los derechos reservados.</p>
       </div>
       <div class="legal-creds">
         <ul>
-          <li><a href="">PolÃ­tica de Privacidad</a></li>
-          <li><a href="">PolÃ­tica de Cookies</a></li>
+          <li><a href="">Política de Privacidad</a></li>
+          <li><a href="">Política de Cookies</a></li>
           <li><a href="">Aviso Legal</a></li>
         </ul>
       </div>
@@ -178,10 +178,40 @@
   </footer>
 
   <script src="menu.js"></script>
-</body>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const r = await fetch('autocheck/auth_check.php', { credentials: 'include' });
+      if (!r.ok) return; const j = await r.json(); if (!j.auth) return;
+      const nav = document.querySelector('.main-menu'); if (!nav) return;
+      const add = (id, html) => { if (!document.getElementById(id)) { const li = document.createElement('li'); li.className='menu-item'; li.innerHTML = html; nav.appendChild(li); } };
+      add('nav-user-link', '<a id="nav-user-link" href="m_usuarios/index_usuarios.html">Mi Cuenta</a>');
+      add('nav-edit-link', '<a id="nav-edit-link" href="usuario/perfil.html">Editar Perfil</a>');
+      add('nav-logout-link', '<a id="nav-logout-link" href="#">Cerrar sesi�n</a>');
+      const out = document.getElementById('nav-logout-link'); if (out) out.addEventListener('click', async (e)=>{ e.preventDefault(); try { await fetch('autocheck/logout.php', { credentials:'include' }); } catch{} try { localStorage.clear(); } catch{} location.href = 'index.html'; });
+    } catch {}
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const r = await fetch('autocheck/auth_check.php', { credentials: 'include' });
+      if (!r.ok) return; const j = await r.json(); if (!j.auth) return;
+      document.querySelectorAll('.main-menu a').forEach(a => {
+        const h = (a.getAttribute('href')||'').toLowerCase();
+        if (h.includes('porceso_de_login') || h.includes('proceso_de_registro')) {
+          const li = a.closest('li'); if (li) li.style.display = 'none';
+        }
+      });
+      const out = document.getElementById('nav-logout-link'); if (out) out.textContent = 'Cerrar sesi�n';
+    } catch {}
+  });
+</script></body>
 </html>
 
  
+
+
+
 
 
 

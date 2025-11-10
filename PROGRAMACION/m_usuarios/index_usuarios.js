@@ -1,39 +1,4 @@
-// const contenido = document.getElementById("contenido-menu");
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     fetch("menu.php")
-//     .then(response => response.json())
-//     .then(data => {
-//         console.log(data);
-        
-//         let productos = "";
-//         data.forEach(item =>{
-//             productos += `      
-            
-//             <div style="background:url(img/pizza.jpg)center;background-size: cover;" 
-//             class="tarjeta-rest">
-//         <div class="wrap-text_tarjeta-rest">
-//           <h3>${item.Nombre}</h3>
-//           <p>
-//           ${item.Descripcion}
-//           </p>
-//           <div class="cta-wrap_tarjeta-rest">
-//             <div class="precio_tarjeta-rest">
-//               <span>€${item.Precio}</span>
-//             </div>
-//             <div class="cta_tarjeta-rest">
-//               <a href="">Pedir ahora</a>
-//             </div>
-//           </div>
-//         </div>  
-//       </div>
-//     ` 
-//         contenido.innerHTML = productos;
-//     })
-//     })
-// })  
-
-const contenido = document.getElementById("contenido-menu");
+const contenido = document.getElementById('contenido-menu');
 const base = '../';
 
 async function requireAuth() {
@@ -42,113 +7,171 @@ async function requireAuth() {
     if (!r.ok) return false;
     const j = await r.json();
     return j.auth === true;
-  } catch { return false; }
+  } catch {
+    return false;
+  }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("menu.php")
-    .then(response => {
-      if (!response.ok) throw new Error("Error al cargar los datos del menú");
-      return response.json();
-    })
-    .then(data => {
-      let productos = "";
+function hydrateMiniCart() {
+  const chip = document.getElementById('mini-cart');
+  if (!chip) return;
+  const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+  const items = carrito.reduce((acc, it) => acc + (it.cantidad || 1), 0);
+  const total = carrito.reduce((acc, it) => acc + (it.precio || 0) * (it.cantidad || 1), 0);
+  chip.textContent = `Carrito: ${items} items - $${total}`;
+}
 
-      data.forEach((item, index) => {
-        // Determinar imagen correcta
-        let imagen;
-        if (item.Imagen && item.Imagen.startsWith("http")) {
-          imagen = item.Imagen;
-        } else if (item.Imagen) {
-          imagen = `../img/${item.Imagen}`;
-        } else {
-          imagen = "../img/default.jpg";
-        }
+function clasificar(tipo) {
+  const v = (tipo || '').toString().toLowerCase();
+  if (v.includes('postre') || v.includes('dulce')) return 'postres';
+  if (v.includes('bebida') || v.includes('jugo') || v.includes('trago')) return 'bebidas';
+  return 'comidas';
+}
 
-        // Crear tarjeta
-        productos += `
-          <div style="background:url('${imagen}') center/cover;" class="tarjeta-rest">
-            <div class="wrap-text_tarjeta-rest">
-              <h3>${item.Nombre}</h3>
-              <p>${item.Descripcion}</p>
-              <div class="cta-wrap_tarjeta-rest">
-                <div class="precio_tarjeta-rest">
-                  <span>$${item.Precio}</span>
-                </div>
-                <div class="cta_tarjeta-rest">
-                  <button class="btn-pedir" 
-                          data-id="${item.Id_producto}" 
-                          data-nombre="${item.Nombre}" 
-                          data-precio="${item.Precio}" 
-                          data-imagen="${imagen}">
-                    Pedir ahora
-                  </button>
-                </div>
+function imagenParaFondo(path) {
+  if (!path) return '../img/default.jpg';
+  if (path.startsWith('http')) return path;
+  if (path.startsWith('./img/')) return `../${path.slice(2)}`;
+  if (path.startsWith('img/')) return `../${path}`;
+  return `../img/${path}`;
+}
+
+function imagenParaCarrito(path) {
+  if (!path) return 'img/default.jpg';
+  if (path.startsWith('http')) return path;
+  if (path.startsWith('./img/')) return path.replace(/^\.\//, '');
+  if (path.startsWith('img/')) return path;
+  return `img/${path}`;
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  // Set nombre desde sesión o localStorage
+  try {
+    const r = await fetch(`${base}autocheck/auth_check.php`, { credentials: 'include' });
+    if (r.ok) {
+      const j = await r.json();
+      const nombreSrv = j && (j.nombre || j.usuario || j.username || j.email);
+      if (nombreSrv) {
+        const span = document.getElementById('user-nombre');
+        if (span) span.textContent = nombreSrv;
+      }
+    }
+  } catch {}
+  if (document.getElementById('user-nombre') && document.getElementById('user-nombre').textContent === 'Usuario') {
+    try {
+      const nombreLS = localStorage.getItem('user_nombre');
+      if (nombreLS) document.getElementById('user-nombre').textContent = nombreLS;
+    } catch {}
+  }
+
+  try {
+    const response = await fetch('menu.php');
+    if (!response.ok) throw new Error('Error al cargar los datos del men\u00FA');
+    const data = await response.json();
+
+    let html = '';
+    (Array.isArray(data) ? data : []).forEach(item => {
+      const imgBg = imagenParaFondo(item.Imagen || '');
+      const imgCart = imagenParaCarrito(item.Imagen || '');
+      const tipo = clasificar(item.Tipo);
+      html += `
+        <div style="background:url('${imgBg}') center/cover;" class="tarjeta-rest" data-tipo="${tipo}">
+          <div class="wrap-text_tarjeta-rest">
+            <h3>${item.Nombre}</h3>
+            <p>${item.Descripcion ?? ''}</p>
+            <div class="cta-wrap_tarjeta-rest">
+              <div class="precio_tarjeta-rest">
+                <span>$${item.Precio}</span>
+              </div>
+              <div class="cta_tarjeta-rest">
+                <button class="btn-pedir"
+                        data-id="${item.Id_producto}"
+                        data-nombre="${item.Nombre}"
+                        data-precio="${item.Precio}"
+                        data-imagen="${imgCart}">
+                  Pedir ahora🍽️
+                </button>
               </div>
             </div>
           </div>
-        `;
-      });
+        </div>
+      `;
+    });
+    if (contenido) contenido.innerHTML = html || '<p>No hay productos para mostrar.</p>';
 
-      contenido.innerHTML = productos;
-
-      // Activar eventos para cada botón
-      document.querySelectorAll(".btn-pedir").forEach(btn => {
-        btn.addEventListener("click", async (e) => {
-          const ok = await requireAuth();
-          if (!ok) {
-            alert('Inicia sesión para pedir.');
+    document.querySelectorAll('.btn-pedir').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const ok = await requireAuth();
+        if (!ok) {
+          if (typeof Swal !== 'undefined') {
+            Swal.fire({
+              icon: 'info',
+              title: 'Inicia sesi\u00F3n',
+              text: 'Necesitas iniciar sesi\u00F3n para pedir.',
+              showCancelButton: true,
+              confirmButtonText: 'Iniciar sesi\u00F3n',
+              cancelButtonText: 'Cancelar'
+            }).then(res => { if (res.isConfirmed) location.href = `${base}porceso_de_login/login.html`; });
+          } else {
+            alert('Necesitas iniciar sesi\u00F3n para pedir.');
             location.href = `${base}porceso_de_login/login.html`;
-            return;
           }
-          const producto = {
-            id: e.target.dataset.id,
-            nombre: e.target.dataset.nombre,
-            precio: parseFloat(e.target.dataset.precio),
-            imagen: e.target.dataset.imagen,
-            cantidad: 1
-          };
-          agregarAlCarrito(producto);
+          return;
+        }
+        const target = e.currentTarget;
+        const producto = {
+          id: target.dataset.id,
+          nombre: target.dataset.nombre,
+          precio: parseFloat(target.dataset.precio),
+          imagen: target.dataset.imagen,
+          cantidad: 1
+        };
+        agregarAlCarrito(producto);
+      });
+    });
+
+    // Filtros
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const f = btn.getAttribute('data-filter');
+        document.querySelectorAll('#contenido-menu .tarjeta-rest').forEach(card => {
+          if (f === 'todos') {
+            card.style.display = '';
+          } else {
+            card.style.display = (card.getAttribute('data-tipo') === f) ? '' : 'none';
+          }
         });
       });
-    })
-    .catch(err => {
-      console.error(err);
-      contenido.innerHTML = "<p>Error al cargar el menú.</p>";
     });
+
+    hydrateMiniCart();
+  } catch (err) {
+    console.error(err);
+    if (contenido) contenido.innerHTML = '<p>Error al cargar el men\u00FA.</p>';
+  }
 });
 
-// --- Función para agregar al carrito ---
 function agregarAlCarrito(producto) {
-  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+  const idx = carrito.findIndex(it => it.id === producto.id);
+  if (idx !== -1) carrito[idx].cantidad += 1; else carrito.push(producto);
+  localStorage.setItem('carrito', JSON.stringify(carrito));
 
-  // Verificar si ya existe en el carrito
-  const index = carrito.findIndex(item => item.id === producto.id);
-  if (index !== -1) {
-    carrito[index].cantidad += 1;
+  if (typeof Swal !== 'undefined') {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      icon: 'success',
+      title: `${producto.nombre} se agregó al carrito 🛒`,
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true
+    });
   } else {
-    carrito.push(producto);
+    alert(`${producto.nombre} se agregó al carrito`);
   }
-
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-  alert(`${producto.nombre} se agregó al carrito 🛒`);
+  hydrateMiniCart();
 }
 
-
-// // --- Función para agregar al carrito ---
-// function agregarAlCarrito(producto) {
-//   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-//   // Verificar si ya existe en el carrito
-//   const index = carrito.findIndex(item => item.id === producto.id);
-//   if (index !== -1) {
-//     carrito[index].cantidad += 1;
-//   } else {
-//     carrito.push(producto);
-//   }
-
-//   localStorage.setItem("carrito", JSON.stringify(carrito));
-//   alert(`${producto.nombre} se agregó al carrito 🛒`);
-// }
 
 

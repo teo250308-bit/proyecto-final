@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -18,7 +18,7 @@
       "configuration": {
         "version": "v1",
         "botName": "Asistente de Marca",
-        "botDescription": "Puedo ayudarte con consultas sobre nuestros productos, Políticas y horarios de atención.",
+        "botDescription": "Puedo ayudarte con consultas sobre nuestros productos, Pol�ticas y horarios de atenci�n.",
         "color": "#FFC300",
         "variant": "solid",
         "headerVariant": "glass",
@@ -26,7 +26,7 @@
         "fontFamily": "inter",
         "radius": 4,
         "feedbackEnabled": true,
-        "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)"
+        "footer": "[? by Botpress](https://botpress.com/?from=webchat)"
       },
       "clientId": "58b7db11-9d43-4910-acb1-2e027dc04c40"
     });
@@ -66,24 +66,39 @@
 <main class="main-section">
   <div class="menu-page">
     <div class="menu-container">
-      <section class="wrap section">
-        <div class="wrap-title-section">
-          <h1><u>Menú</u></h1>
+      <section class="wrap section" style="padding-top:0">
+        <div class="user-header" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
+          <div>
+            <h1 style="margin:0;">Hola, <span id="user-nombre">Usuario</span></h1>
+            <small>Bienvenido a tu espacio de pedidos</small>
+          </div>
+          <div class="quick-actions" style="display:flex;gap:.5rem;align-items:center;">
+            <a class="btn" href="../carrito/carrito.html" style="background:#ffc300;color:#222;padding:.6rem .9rem;border-radius:8px;text-decoration:none;">Ver Carrito</a>
+            <a class="btn" href="../index_base.html" style="background:#222;color:#fff;padding:.6rem .9rem;border-radius:8px;text-decoration:none;">Ver Menu</a>
+            <span id="mini-cart" style="padding:.4rem .6rem;background:#f4f6f8;border-radius:8px;color:#576171;">Carrito: 0 items - $0</span>
+          </div>
         </div>
-        <div class="wrap-title-section"><h2>Todos</h2></div>
+      </section>
+      <section class="wrap section" style="padding-top:0">
+        <div class="menu-filter" style="display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0 1rem;">
+          <button class="filter-btn" data-filter="todos" style="padding:.5rem .8rem;border-radius:8px;border:1px solid #ddd;background:#000000;cursor:pointer;">Todos</button>
+          <button class="filter-btn" data-filter="comidas" style="padding:.5rem .8rem;border-radius:8px;border:1px solid #ddd;background:#000000;cursor:pointer;">Comidas</button>
+          <button class="filter-btn" data-filter="bebidas" style="padding:.5rem .8rem;border-radius:8px;border:1px solid #ddd;background:#000000;cursor:pointer;">Bebidas</button>
+          <button class="filter-btn" data-filter="postres" style="padding:.5rem .8rem;border-radius:8px;border:1px solid #ddd;background:#000000;cursor:pointer;">Postres</button>
+        </div>
         <div id="contenido-menu" class="column-4 columns"></div>
       </section>
     </div>
   </div>
-</main>
-   <footer class="footer">
+</main>  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.23.0/dist/sweetalert2.all.min.js"></script>
+  <footer class="footer">
     <div class="wrap-footer">
       <div class="text-element-footer element-footer">
         <h3>Restaurante</h3>
         <p>En NUTRANT trabajamos con ingredientes frescos y recetas pensadas para todos los gustos. Queremos que disfrutes tu comida de forma rica, accesible y saludable.</p>
       </div>
       <div class="text-element-footer element-footer">
-                <h5>Dirección</h5>
+                <h5>Direccion</h5>
         <ul>
           <li>Avenida Italia 4567</li>
           <li>Montevideo, Uruguay</li>
@@ -91,7 +106,7 @@
         </ul>
       </div>
       <div class="text-element-footer element-footer">
-        <h5>Más información</h5>
+        <h5>Más informacion</h5>
         <ul>
           <li><a href="/">Inicio</a></li>
           <li><a href="../nosotros/index.html">Nosotros</a></li>
@@ -117,7 +132,7 @@
     </div>
     <div class="footer-creds">
       <div class="copy-creds">
-        <p>©2022 · Todos los derechos reservados.</p>
+        <p>©2022 © Todos los derechos reservados.</p>
       </div>
       <div class="legal-creds">
         <ul>
@@ -129,10 +144,33 @@
     </div>
   </footer>
   <script src="index_usuarios.js"></script>
-</body>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const span = document.getElementById('user-nombre');
+      let nombre = null;
+      try {
+        const r = await fetch('../autocheck/auth_check.php', { credentials: 'include' });
+        if (r.ok) {
+          const j = await r.json();
+          nombre = j && (j.nombre || j.usuario || j.username || j.email) || null;
+        }
+      } catch (e) {}
+      if (!nombre) {
+        try { nombre = localStorage.getItem('user_nombre'); } catch(e) {}
+      }
+      if (span && nombre) span.textContent = nombre;
+    });
+  </script></body>
 </html>
 
  
+
+
+
+
+
+
+
 
 
 

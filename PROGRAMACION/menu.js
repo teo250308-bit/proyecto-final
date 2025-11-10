@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return false;
     }
   }
+
   const elAll = document.getElementById('contenido-menu');
   const elComidas = document.getElementById('contenido-menu-comidas');
   const elBebidas = document.getElementById('contenido-menu-bebidas');
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!elAll && !elComidas && !elBebidas && !elPostres) return;
 
   fetch('m_usuarios/menu.php')
-    .then(r => { if (!r.ok) throw new Error('Error al cargar el menú'); return r.json(); })
+    .then(r => { if (!r.ok) throw new Error('Error al cargar el men\u00FA'); return r.json(); })
     .then(data => {
       const buckets = { comidas: [], bebidas: [], postres: [] };
 
@@ -66,8 +67,19 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', async (e) => {
           const ok = await requireAuth();
           if (!ok) {
-            alert('Inicia sesión para pedir.');
-            location.href = `${base}porceso_de_login/login.html`;
+            if (typeof Swal !== 'undefined') {
+              Swal.fire({
+                icon: 'info',
+                title: 'Inicia sesi\u00F3n',
+                text: 'Necesitas iniciar sesi\u00F3n para pedir.',
+                showCancelButton: true,
+                confirmButtonText: 'Iniciar sesi\u00F3n',
+                cancelButtonText: 'Cancelar'
+              }).then(res => { if (res.isConfirmed) location.href = `${base}porceso_de_login/login.html`; });
+            } else {
+              alert('Necesitas iniciar sesi\u00F3n para pedir.');
+              location.href = `${base}porceso_de_login/login.html`;
+            }
             return;
           }
           const producto = {
@@ -83,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(err => {
       console.error(err);
-      const errorHtml = '<p>Error al cargar el menú.</p>';
+      const errorHtml = '<p>Error al cargar el men\u00FA.</p>';
       if (elComidas) elComidas.innerHTML = errorHtml;
       if (elBebidas) elBebidas.innerHTML = errorHtml;
       if (elPostres) elPostres.innerHTML = errorHtml;
@@ -92,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function agregarAlCarrito(producto) {
-  let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+  const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
   const index = carrito.findIndex(item => item.id === producto.id);
   if (index !== -1) {
     carrito[index].cantidad += 1;
@@ -100,5 +112,21 @@ function agregarAlCarrito(producto) {
     carrito.push(producto);
   }
   localStorage.setItem('carrito', JSON.stringify(carrito));
-  alert(`${producto.nombre} se agregó al carrito`);
+  if (typeof Swal !== 'undefined') {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      icon: 'success',
+      title: `${producto.nombre} se agregó al carrito`,
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true
+    });
+  } else {
+    alert(`${producto.nombre} se agregó al carrito`);
+  }
 }
+
+
+
+

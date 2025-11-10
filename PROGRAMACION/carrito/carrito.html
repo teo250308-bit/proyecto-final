@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -29,8 +29,9 @@
 
         <ul class="main-menu">
           <li class="menu-item"><a href="../m_usuarios/index_usuarios.html">Inicio</a></li>
-          <!-- <li class="menu-item"><a href="">Menu</a></li> -->
-          <!-- <li class="menu-item"><a href="../PROGRAMACION/proceso_de_registro/registro.html">registrarse</a></li>
+          <li class="menu-item"><a href="../index_base.html">Menú</a></li>
+          <!-- <li class="menu-item"><a href="">Menú</a></li> -->
+          <!-- <li class="menu-item"><a href="../PROGRAMACI../usuario/perfil.html">registrarse</a></li>
           <li class="menu-item"><a href="../PROGRAMACION/porceso_de_login/login.html">iniciar sesion</a></li> -->
           <li class="menu-item"><a href="../nosotros/index.html">Nosotros</a></li>
           <li id="nav-main-contact" class="menu-item"><a href="../contacto/contactov2.html">Contacto</a></li>
@@ -44,10 +45,10 @@
 
   <main class="main-section">
      <div class="wrap-title-section">
-      <h2>🛒 Tu carrito</h2>
+      <h2>Tu carrito</h2>
     </div>
-  <!-- Aquí van a ir todas las secciones -->
-   <!-- Poner todo el código a partir de aquí -->
+  <!-- Aqu� van a ir todas las secciones -->
+   <!-- Poner todo el c�digo a partir de aqu� -->
 <!-- Tarjetas de comida -->
   <section class="wrap section">
     <div id="carrito-contenido" class="card" style="text-align:center;">
@@ -56,11 +57,11 @@
     </section>
   </main>
 
-  <!-- 🧾 Modal de pago -->
+  <!-- Modal de pago -->
   <div id="modal-pago" class="modal">
     <div class="modal-content">
       <span class="close-btn">&times;</span>
-      <h2>💳 Procesar Pago</h2>
+      <h2>Procesar Pago</h2>
       <form id="form-pago">
         <label>Nombre completo:</label>
         <input type="text" id="nombre" required>
@@ -77,7 +78,7 @@
         </select>
 
         <div id="datos-tarjeta" style="display:none;">
-          <label>Número de tarjeta:</label>
+          <label>Numero de tarjeta:</label>
           <input type="text" maxlength="16" placeholder="XXXX XXXX XXXX XXXX">
           <label>Fecha de vencimiento:</label>
           <input type="month">
@@ -133,18 +134,66 @@
     </div>
     <div class="footer-creds">
       <div class="copy-creds">
-        <p>©2022 · Todos los derechos reservados.</p>
+        <p>©2022 © Todos los derechos reservados.</p>
       </div>
       <div class="legal-creds">
         <ul>
           <li><a href="">Política de Privacidad</a></li>
-          <li><a href="">Plítica de Cookies</a></li>
+          <li><a href="">Política de Cookies</a></li>
           <li><a href="">Aviso Legal</a></li>
         </ul>
       </div>
     </div>
   </footer>
-<script src="carrito.js"></script>
+  <script src="carrito.js"></script>
+  <script>
+    // Agrega botones de cuenta cuando el usuario está logueado
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('../autocheck/auth_check.php', { credentials: 'include' });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!data.auth) return;
+
+        const nav = document.querySelector('.main-menu');
+        if (!nav) return;
+
+        if (!document.getElementById('nav-user-link')) {
+          const liUser = document.createElement('li');
+          liUser.className = 'menu-item';
+          liUser.innerHTML = '<a id="nav-user-link" href="../m_usuarios/index_usuarios.html">Mi Cuenta</a>';
+          nav.appendChild(liUser);
+        }
+
+        if (!document.getElementById('nav-edit-link')) {
+          const liEdit = document.createElement('li');
+          liEdit.className = 'menu-item';
+          liEdit.innerHTML = '<a id="nav-edit-link" href="../usuario/perfil.html">Editar Perfil</a>';
+          nav.appendChild(liEdit);
+        }
+
+        if (!document.getElementById('nav-logout-link')) {
+          const liLogout = document.createElement('li');
+          liLogout.className = 'menu-item';
+          liLogout.innerHTML = '<a id="nav-logout-link" href="#">Cerrar sesión</a>';
+          nav.appendChild(liLogout);
+
+          document.getElementById('nav-logout-link').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try { await fetch('../autocheck/logout.php', { credentials: 'include' }); } catch {}
+            try { localStorage.removeItem('user_nombre'); localStorage.removeItem('carrito'); } catch {}
+            location.href = '../index.html';
+          });
+        }
+      } catch {}
+    });
+  </script>
 </body>
 </html>
+
+
+
+
+
+
 
