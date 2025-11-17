@@ -42,7 +42,7 @@
         <div class="wrap-nav-header">
           <nav class="nav-header">
             <input type="checkbox" id="check"><label for="check" class="checkbtn"><i class="toggle-menu"></i></label>
-            <ul class="main-menu">
+            <ul class="main-menu" id="main-menu">
               <li class="menu-item"><a href="../index.html">Inicio</a></li>
               <li class="menu-item"><a href="../index_base.html">Men煤</a></li>
               <li id="nav-main-contact" class="menu-item"><a href="../contacto/contactov2.html">Contacto</a></li>
@@ -73,19 +73,19 @@
     </section>
 
     <section class="wrap section" style="background:#f3dfc4; border-radius:12px; padding:2rem 1rem;">
-      <div class="wrap-title-section"><h2 style="color:#000">Misi贸n Y Valores</h2></div>
+      <div class="wrap-title-section"><h2 style="color:#000">Misi贸n, Vision y Valores</h2></div>
       <div class="columns" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto;">
         <div style="background:#fff; color:#222; border-radius:12px; padding:1.25rem; box-shadow:0 2px 8px rgb(0 0 0 / 6%);">
-          <h3>Ingredientes Frescos</h3>
-          <p>Seleccionamos productores locales y priorizamos la estacionalidad para garantizar sabor y calidad.</p>
+          <h3>Misi贸n</h3>
+          <p>Ofrecer comida saludable y rica, con informaci贸n clara sobre nutrici贸n, usando tecnolog铆a para mejorar la experiencia de nuestros clientes.</p>
         </div>
         <div style="background:#fff; color:#222; border-radius:12px; padding:1.25rem; box-shadow:0 2px 8px rgb(0 0 0 / 6%);">
-          <h3>Recetas Pensadas</h3>
-          <p>Equilibrio entre sabor y nutrici贸n, con opciones para diferentes preferencias y estilos de vida.</p>
+          <h3>Visi贸n</h3>
+          <p>Ser el restaurante saludable n煤mero uno, combinando buena comida y tecnolog铆a, con impacto en Uruguay y la regi贸n.</p>
         </div>
         <div style="background:#fff; color:#222; border-radius:12px; padding:1.25rem; box-shadow:0 2px 8px rgb(0 0 0 / 6%);">
-          <h3>Compromiso Real</h3>
-          <p>Transparencia en lo que cocinamos y mejora continua basada en tu feedback.</p>
+          <h3>Valores</h3>
+          <p>- Salud<br>- Calidad<br>- Innovaci贸n<br>- Transparencia<br>- Sustentabilidad</p>
         </div>
       </div>
     </section>
@@ -135,11 +135,15 @@
     try {
       const r = await fetch('../autocheck/auth_check.php', { credentials: 'include' });
       if (!r.ok) return; const j = await r.json(); if (!j.auth) return;
-      const nav = document.querySelector('.main-menu'); if (!nav) return;
+      const nav = document.getElementById('main-menu'); if (!nav) return;
       const add = (id, html) => { if (!document.getElementById(id)) { const li = document.createElement('li'); li.className='menu-item'; li.innerHTML = html; nav.appendChild(li); } };
       add('nav-user-link', '<a id="nav-user-link" href="../m_usuarios/index_usuarios.html">Mi Cuenta</a>');
       add('nav-edit-link', '<a id="nav-edit-link" href="../usuario/perfil.html">Editar Perfil</a>');
-      add('nav-logout-link', '<a id="nav-logout-link" href="#">Cerrar sesi髇</a>');
+      if (j.rol === 'admin') {
+        add('nav-admin-dashboard', '<a id="nav-admin-dashboard" href="../m_admin/index_admin.html">Dashboard</a>');
+        add('nav-admin-news', '<a id="nav-admin-news" href="../m_admin/index_admin.html#news-admin-section">Gestionar novedades</a>');
+      }
+      add('nav-logout-link', '<a id="nav-logout-link" href="#">Cerrar sesion</a>');
       const out = document.getElementById('nav-logout-link'); if (out) out.addEventListener('click', async (e)=>{ e.preventDefault(); try { await fetch('../autocheck/logout.php', { credentials:'include' }); } catch{} try { localStorage.clear(); } catch{} location.href = '../index.html'; });
     } catch {}
   });
@@ -154,11 +158,12 @@
           const li = a.closest('li'); if (li) li.style.display = 'none';
         }
       });
-      const out = document.getElementById('nav-logout-link'); if (out) out.textContent = 'Cerrar sesi髇';
+      const out = document.getElementById('nav-logout-link'); if (out) out.textContent = 'Cerrar sesi锟絥';
     } catch {}
   });
-</script></body>
+</script>
+<script src="../js/admin_nav.js" data-base="../"></script>
+<script src="../analytics/tracker.js" data-root="../"></script>
+</body>
 </html>
-
-
 

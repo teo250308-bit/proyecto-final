@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin | NUTRANT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+</head>
+<body class="dashboard-body">
+  <div class="wrap-header-hero">
+    <header class="main-header">
+      <div class="header-wrap">
+        <div class="wrap-logo-header">
+          <a class="logo-header" href="../index.html">NUTRANT</a>
+        </div>
+        <div class="wrap-nav-header">
+          <nav class="nav-header">
+            <input type="checkbox" id="check">
+            <label for="check" class="checkbtn">
+              <i class="toggle-menu">
+                <img src="../img/menu.svg" alt="menu">
+              </i>
+            </label>
+            <ul class="main-menu" id="main-menu">
+              <li class="menu-item"><a href="../index.html">Inicio</a></li>
+              <li class="menu-item"><a href="../index_base.html">Menú</a></li>
+              <li class="menu-item"><a href="../m_usuarios/index_usuarios.html">Mi cuenta</a></li>
+              <li class="menu-item"><a href="../gestion_platos/index.html">Platos</a></li>
+              <li class="menu-item"><a href="../gestion_usuarios/index.html">Usuarios</a></li>
+              <li class="menu-item"><a href="index_admin.html" class="active">Dashboard</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <main class="dashboard-page">
+    <section class="dashboard-hero">
+      <div>
+        <h1>Panel web en tiempo real</h1>
+        <p>Visualiza el rendimiento de la web: reservas y pedidos desde el canal digital, actividad por hora, comportamiento de clientes y platos con mejor desempeño.</p>
+        <div id="hero-updated" class="state-badge">Actualizado —</div>
+      </div>
+      <div class="hero-kpis">
+        <div class="kpi-pill">
+          <span>Hoy</span>
+          <strong id="hero-dia">0</strong>
+          <small>Reservas + pedidos</small>
+        </div>
+        <div class="kpi-pill">
+          <span>Semana</span>
+          <strong id="hero-semana">0</strong>
+          <small>Últimos 7 días</small>
+        </div>
+        <div class="kpi-pill">
+          <span>Mes</span>
+          <strong id="hero-mes">0</strong>
+          <small>Últimos 30 días</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-section">
+      <div class="conversion-card">
+        <h3>Tasa de conversión web</h3>
+        <div class="conversion-value" id="conversion-valor">0%</div>
+        <p id="conversion-detalle">0 reservas/pedidos · 0 visitas</p>
+        <div class="conversion-meta">
+          <div>
+            <span class="pill success">Visitas</span>
+            <div id="conversion-visitas" class="metric-value">0</div>
+          </div>
+          <div>
+            <span class="pill info">Reservas + pedidos</span>
+            <div id="conversion-rp" class="metric-value">0</div>
+          </div>
+        </div>
+        <canvas id="chartConversion" height="180" style="margin-top:1rem;"></canvas>
+      </div>
+    </section>
+
+    <section class="dashboard-section" id="news-admin-section">
+      <h2 style="margin-top:0;">Gestionar novedades</h2>
+      <form id="news-form" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem;">
+        <input type="hidden" id="news-id">
+        <div>
+          <label for="news-title">Título</label>
+          <input type="text" id="news-title" placeholder="Título de la novedad" required>
+        </div>
+        <div>
+          <label for="news-image">Imagen</label>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+            <input type="text" id="news-image" placeholder="img/archivo.jpg" style="flex:1;min-width:150px;">
+            <label class="btn" style="background:#1f2937;color:#fff;padding:.45rem .9rem;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;">
+              <span id="news-upload-label">Subir</span>
+              <input type="file" id="news-image-file" accept="image/*" style="display:none;">
+            </label>
+          </div>
+          <small style="color:#6b7280;font-size:.8rem;">Podés pegar una URL o subir una imagen (jpg/png/webp/gif).</small>
+        </div>
+        <div>
+          <label for="news-order">Orden</label>
+          <input type="number" id="news-order" value="0">
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:.5rem;">
+          <label style="display:flex;align-items:center;gap:.35rem;">
+            <input type="checkbox" id="news-active" checked> Activa
+          </label>
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label for="news-description">Descripción</label>
+          <textarea id="news-description" rows="3" placeholder="Detalle breve"></textarea>
+        </div>
+        <div style="grid-column:1 / -1;display:flex;gap:.5rem;flex-wrap:wrap;">
+          <button type="submit" class="btn" style="background:var(--main-c);padding:.6rem 1.2rem;border:none;border-radius:8px;">Guardar</button>
+          <button type="button" id="news-reset" class="btn" style="padding:.6rem 1.2rem;border-radius:8px;border:1px solid #e5e7eb;background:#fff;color:#1f2937;">Limpiar</button>
+        </div>
+      </form>
+      <div class="list-card" style="margin-top:1.5rem;">
+        <h3>Novedades actuales</h3>
+        <ul id="news-admin-list"></ul>
+      </div>
+    </section>
+
+
+    <section class="dashboard-section">
+      <div class="activity-grid">
+        <div class="chart-card">
+          <h3>Visitas por hora (7 días)</h3>
+          <canvas id="chartVisitasHora" height="220"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-section">
+      <div class="list-card">
+        <h3>Platos más pedidos (Top 10)</h3>
+        <ul id="lista-platos-pedidos"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/admin_nav.js" data-base="../"></script>
+  <script src="../analytics/tracker.js" data-root="../"></script>
+  <script src="admin_dashboard.js"></script>
+</body>
+</html>

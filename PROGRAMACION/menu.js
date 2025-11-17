@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const base = location.pathname.includes('/PROGRAMACION/m_usuarios/') ? '../' : '';
+  const encode = (value = '') => encodeURIComponent((value ?? '').toString());
 
   async function requireAuth() {
     try {
@@ -32,6 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="cta-wrap_tarjeta-rest">
               <div class="precio_tarjeta-rest"><span>$${item.Precio}</span></div>
               <div class="cta_tarjeta-rest">
+                <button class="btn-detalle"
+                        data-id="${item.Id_producto}"
+                        data-nombre="${item.Nombre}"
+                        data-precio="${item.Precio}"
+                        data-descripcion="${encode(item.Descripcion ?? '')}">
+                  Ver más
+                </button>
                 <button class="btn-pedir"
                         data-id="${item.Id_producto}"
                         data-nombre="${item.Nombre}"
@@ -62,6 +70,25 @@ document.addEventListener('DOMContentLoaded', () => {
       if (elBebidas) elBebidas.innerHTML = buckets.bebidas.join('') || '<p>No hay bebidas disponibles.</p>';
       if (elPostres) elPostres.innerHTML = buckets.postres.join('') || '<p>No hay postres disponibles.</p>';
       if (elAll) elAll.innerHTML = [...buckets.comidas, ...buckets.bebidas, ...buckets.postres].join('');
+
+      document.querySelectorAll('.btn-detalle').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const nombre = btn.dataset.nombre || 'Plato';
+          const descripcion = decodeURIComponent(btn.dataset.descripcion || '');
+          const precio = parseFloat(btn.dataset.precio || '0');
+          const content = `${descripcion || 'Sin descripción disponible.'}<br><br><strong>Precio:</strong> $${precio}`;
+          if (typeof Swal !== 'undefined') {
+            Swal.fire({
+              title: nombre,
+              html: content,
+              confirmButtonText: 'Cerrar',
+              width: 600,
+            });
+          } else {
+            alert(`${nombre}\n\n${descripcion}\n\nPrecio: $${precio}`);
+          }
+        });
+      });
 
       document.querySelectorAll('.btn-pedir').forEach(btn => {
         btn.addEventListener('click', async (e) => {

@@ -12,7 +12,18 @@ try {
     $stmt->execute([$email]);
     $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($resultado && password_verify($password, $resultado['contrasena'])) {
+    $credencialesValidas = false;
+
+    if ($resultado) {
+        $hash = $resultado['contrasena'];
+        if ($hash && password_get_info($hash)['algo'] !== 0) {
+            $credencialesValidas = password_verify($password, $hash);
+        } else {
+            $credencialesValidas = hash_equals((string)$hash, (string)$password);
+        }
+    }
+
+    if ($credencialesValidas) {
         $_SESSION['email'] = $email;
         $_SESSION['rol'] = $resultado['rol'];
         $_SESSION['nombre'] = $resultado['nombre'];

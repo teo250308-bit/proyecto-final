@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap">
 </head>
-<body>
+<body class="contact-page">
   <div id="botpress-webchat-container"></div>
   <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js"></script>
   <script>
@@ -25,7 +25,7 @@
         <div class="wrap-nav-header">
           <nav class="nav-header">
             <input type="checkbox" id="check"><label for="check" class="checkbtn"><i class="toggle-menu"></i></label>
-            <ul class="main-menu">
+            <ul class="main-menu" id="main-menu">
               <li class="menu-item"><a href="../index.html">Inicio</a></li>
               <li class="menu-item"><a href="../nosotros/index.html">Nosotros</a></li>
               <li class="menu-item"><a href="../index_base.html">Menú</a></li>
@@ -54,7 +54,7 @@
           <p><strong>Horario:</strong> Lunes a Viernes de 9:00 a 18:00</p>
         </div>
         <div class="contact-form">
-          <form class="contact-form" action="enviar_mensaje.php" method="POST">
+          <form class="contact-form" id="contact-form" action="enviar_mensaje.php" method="POST">
             <h2>Enviá Tu Mensaje</h2>
             <label for="nombre">Nombre</label>
             <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
@@ -73,7 +73,7 @@
     <div class="wrap-footer">
       <div class="text-element-footer element-footer">
         <h3>Restaurante</h3>
-        <p>En NUTRANT fusionamos sabor y calidad en cada plato. Visítanos o pedí online.</p>
+        <p>En NUTRANT fusionamos sabor y calidad en cada plato. Visitános o pedí online.</p>
       </div>
       <div class="text-element-footer element-footer">
         <h5>Dirección</h5>
@@ -102,7 +102,7 @@
       </div>
     </div>
     <div class="footer-creds">
-      <div class="copy-creds"><p>© 2025 — Todos los derechos reservados.</p></div>
+      <div class="copy-creds"><p>© 2025 · Todos los derechos reservados.</p></div>
     </div>
   </footer>
 <script>
@@ -110,11 +110,11 @@
     try {
       const r = await fetch('../autocheck/auth_check.php', { credentials: 'include' });
       if (!r.ok) return; const j = await r.json(); if (!j.auth) return;
-      const nav = document.querySelector('.main-menu'); if (!nav) return;
+      const nav = document.getElementById('main-menu'); if (!nav) return;
       const add = (id, html) => { if (!document.getElementById(id)) { const li = document.createElement('li'); li.className='menu-item'; li.innerHTML = html; nav.appendChild(li); } };
       add('nav-user-link', '<a id="nav-user-link" href="../m_usuarios/index_usuarios.html">Mi Cuenta</a>');
       add('nav-edit-link', '<a id="nav-edit-link" href="../usuario/perfil.html">Editar Perfil</a>');
-      add('nav-logout-link', '<a id="nav-logout-link" href="#">Cerrar sesi�n</a>');
+      add('nav-logout-link', '<a id="nav-logout-link" href="#">Cerrar sesión</a>');
       const out = document.getElementById('nav-logout-link'); if (out) out.addEventListener('click', async (e)=>{ e.preventDefault(); try { await fetch('../autocheck/logout.php', { credentials:'include' }); } catch{} try { localStorage.clear(); } catch{} location.href = '../index.html'; });
     } catch {}
   });
@@ -129,11 +129,36 @@
           const li = a.closest('li'); if (li) li.style.display = 'none';
         }
       });
-      const out = document.getElementById('nav-logout-link'); if (out) out.textContent = 'Cerrar sesi�n';
+      const out = document.getElementById('nav-logout-link'); if (out) out.textContent = 'Cerrar sesión';
     } catch {}
   });
-</script></body>
+</script>
+<script src="../js/admin_nav.js" data-base="../"></script>
+<script src="../analytics/tracker.js" data-root="../"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const btn = form.querySelector('button[type=\"submit\"]');
+      if (btn) btn.disabled = true;
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: formData });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || 'No se pudo enviar el mensaje');
+        }
+        alert('Mensaje enviado. ¡Gracias por contactarnos!');
+        form.reset();
+      } catch (err) {
+        alert(err.message || 'Error al enviar');
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    });
+  });
+</script>
+</body>
 </html>
-
-
-

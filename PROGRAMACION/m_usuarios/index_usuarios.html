@@ -49,7 +49,7 @@
           </i>
         </label>
 
-        <ul class="main-menu">
+        <ul class="main-menu" id="main-menu">
           <li class="menu-item"><a href="../index.html">Inicio</a></li>
           <li class="menu-item"><a href="../index_base.html">Menú</a></li>
           <li class="menu-item"><a href="../porceso_de_login/login.html">Iniciar sesión</a></li>
@@ -144,6 +144,7 @@
     </div>
   </footer>
   <script src="index_usuarios.js"></script>
+  <script src="../js/admin_nav.js" data-base="../"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       const span = document.getElementById('user-nombre');
@@ -160,7 +161,9 @@
       }
       if (span && nombre) span.textContent = nombre;
     });
-  </script></body>
+  </script>
+  <script src="../analytics/tracker.js" data-root="../"></script>
+</body>
 </html>
 
  

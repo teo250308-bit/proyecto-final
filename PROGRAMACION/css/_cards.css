@@ -44,13 +44,41 @@
 }
 
 .cta_tarjeta-rest{
-  background-color: var(--main-c);
-  padding: .25rem 1rem;
+  background-color: transparent;
+  padding: 0;
   border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  justify-content: flex-end;
 }
 .cta_tarjeta-rest a{
   color: #fff;
   font-weight: bold;
+  text-decoration: none;
+  background: var(--main-c);
+  padding: .45rem .9rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+.cta_tarjeta-rest button{
+  border: none;
+  border-radius: 6px;
+  padding: .45rem .9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.cta_tarjeta-rest button:hover{
+  transform: translateY(-2px);
+}
+.cta_tarjeta-rest .btn-detalle{
+  background: rgba(15, 23, 42, .7);
+  color: #fff;
+}
+.cta_tarjeta-rest .btn-pedir{
+  background: var(--main-c);
+  color: #1e1e1e;
 }
 
 @media (max-width:1200px){

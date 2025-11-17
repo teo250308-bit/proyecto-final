@@ -27,7 +27,7 @@
           </i>
         </label>
 
-        <ul class="main-menu">
+        <ul class="main-menu" id="main-menu">
           <li class="menu-item"><a href="../m_usuarios/index_usuarios.html">Inicio</a></li>
           <li class="menu-item"><a href="../index_base.html">Menú</a></li>
           <!-- <li class="menu-item"><a href="">Menú</a></li> -->
@@ -148,6 +148,8 @@
   <script src="carrito.js"></script>
   <script>
     // Agrega botones de cuenta cuando el usuario está logueado
+<script>
+    // Agrega botones de cuenta cuando el usuario est? logueado
     document.addEventListener('DOMContentLoaded', async () => {
       try {
         const res = await fetch('../autocheck/auth_check.php', { credentials: 'include' });
@@ -155,30 +157,28 @@
         const data = await res.json();
         if (!data.auth) return;
 
-        const nav = document.querySelector('.main-menu');
+        const nav = document.getElementById('main-menu');
         if (!nav) return;
 
-        if (!document.getElementById('nav-user-link')) {
-          const liUser = document.createElement('li');
-          liUser.className = 'menu-item';
-          liUser.innerHTML = '<a id="nav-user-link" href="../m_usuarios/index_usuarios.html">Mi Cuenta</a>';
-          nav.appendChild(liUser);
+        const add = (id, html) => {
+          if (document.getElementById(id)) return;
+          const li = document.createElement('li');
+          li.className = 'menu-item';
+          li.innerHTML = html;
+          nav.appendChild(li);
+        };
+
+        add('nav-user-link', '<a id="nav-user-link" href="../m_usuarios/index_usuarios.html">Mi Cuenta</a>');
+        add('nav-edit-link', '<a id="nav-edit-link" href="../usuario/perfil.html">Editar Perfil</a>');
+        if (data.rol === 'admin') {
+          add('nav-admin-dashboard', '<a id="nav-admin-dashboard" href="../m_admin/index_admin.html">Dashboard</a>');
+          add('nav-admin-news', '<a id="nav-admin-news" href="../m_admin/index_admin.html#news-admin-section">Gestionar novedades</a>');
         }
+        add('nav-logout-link', '<a id="nav-logout-link" href="#">Cerrar sesi?n</a>');
 
-        if (!document.getElementById('nav-edit-link')) {
-          const liEdit = document.createElement('li');
-          liEdit.className = 'menu-item';
-          liEdit.innerHTML = '<a id="nav-edit-link" href="../usuario/perfil.html">Editar Perfil</a>';
-          nav.appendChild(liEdit);
-        }
-
-        if (!document.getElementById('nav-logout-link')) {
-          const liLogout = document.createElement('li');
-          liLogout.className = 'menu-item';
-          liLogout.innerHTML = '<a id="nav-logout-link" href="#">Cerrar sesión</a>';
-          nav.appendChild(liLogout);
-
-          document.getElementById('nav-logout-link').addEventListener('click', async (e) => {
+        const logout = document.getElementById('nav-logout-link');
+        if (logout) {
+          logout.addEventListener('click', async (e) => {
             e.preventDefault();
             try { await fetch('../autocheck/logout.php', { credentials: 'include' }); } catch {}
             try { localStorage.removeItem('user_nombre'); localStorage.removeItem('carrito'); } catch {}
@@ -188,10 +188,10 @@
       } catch {}
     });
   </script>
+  <script src="../js/admin_nav.js" data-base="../"></script>
+  <script src="../analytics/tracker.js" data-root="../"></script>
 </body>
 </html>
-
-
 
 
 

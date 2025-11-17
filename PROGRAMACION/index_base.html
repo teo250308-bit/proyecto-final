@@ -17,7 +17,7 @@
       "configuration": {
         "version": "v1",
         "botName": "Asistente de Marca",
-        "botDescription": "Puedo ayudarte con consultas sobre nuestros productos, Pol&iacute;ticas y horarios de atenci�n.",
+        "botDescription": "Puedo ayudarte con consultas sobre nuestros productos, Politicas y horarios de atención.",
         "color": "#FFC300",
         "variant": "solid",
         "headerVariant": "glass",
@@ -44,7 +44,7 @@
                 <img src="img/menu.svg" alt="menu"/>
               </i>
             </label>
-            <ul class="main-menu">
+            <ul class="main-menu" id="main-menu">
               <li class="menu-item"><a href="index.html">Inicio</a></li>
               <li class="menu-item"><a href="index_base.html">Men&uacute;</a></li>
               <li class="menu-item"><a href="proceso_de_registro/registro.html">Registrarse</a></li>
@@ -135,10 +135,14 @@
     try {
       const r = await fetch('autocheck/auth_check.php', { credentials: 'include' });
       if (!r.ok) return; const j = await r.json(); if (!j.auth) return;
-      const nav = document.querySelector('.main-menu'); if (!nav) return;
+      const nav = document.getElementById('main-menu'); if (!nav) return;
       const add = (id, html) => { if (!document.getElementById(id)) { const li = document.createElement('li'); li.className='menu-item'; li.innerHTML = html; nav.appendChild(li); } };
       add('nav-user-link', '<a id="nav-user-link" href="m_usuarios/index_usuarios.html">Mi Cuenta</a>');
       add('nav-edit-link', '<a id="nav-edit-link" href="usuario/perfil.html">Editar Perfil</a>');
+      if (j.rol === 'admin') {
+        add('nav-admin-dashboard', '<a id="nav-admin-dashboard" href="m_admin/index_admin.html">Dashboard</a>');
+        add('nav-admin-news', '<a id="nav-admin-news" href="m_admin/index_admin.html#news-admin-section">Gestionar novedades</a>');
+      }
       add('nav-logout-link', '<a id="nav-logout-link" href="#">Cerrar sesión</a>');
       const out = document.getElementById('nav-logout-link'); if (out) out.addEventListener('click', async (e)=>{ e.preventDefault(); try { await fetch('autocheck/logout.php', { credentials:'include' }); } catch{} try { localStorage.clear(); } catch{} location.href = 'index.html'; });
     } catch {}
@@ -157,14 +161,11 @@
       const out = document.getElementById('nav-logout-link'); if (out) out.textContent = 'Cerrar sesión';
     } catch {}
   });
-</script></body>
+</script>
+<script src="js/admin_nav.js" data-base=""></script>
+<script src="analytics/tracker.js" data-root=""></script>
+</body>
 </html>
-
-
-
-
-
-
 
 
 

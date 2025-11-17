@@ -12,10 +12,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputId = document.getElementById("platoId");
   const inputNombre = document.getElementById("nombre");
   const inputDescripcion = document.getElementById("descripcion");
-  const inputImagen = document.getElementById("imagen");
+  const inputImagenUrl = document.getElementById("imagenUrl");
+  const inputImagenArchivo = document.getElementById("imagenArchivo");
   const inputPrecio = document.getElementById("precio");
   const inputTipo = document.getElementById("tipo");
   const imgPreview = document.getElementById("imgPreview");
+
+  const normalizarImagen = (valor) => {
+    if (!valor) return "../img/default.jpg";
+    if (/^(https?:)?\/\//i.test(valor) || valor.startsWith("data:")) return valor;
+
+    let src = valor.replace(/\\/g, "/").trim();
+    if (src.startsWith("/")) return src;
+    if (src.startsWith("../")) return src;
+    if (src.startsWith("uploads/")) return src;
+    if (src.startsWith("./img/")) return `../${src.slice(2)}`;
+    if (src.startsWith("img/")) return `../${src}`;
+    return `../img/${src.replace(/^(\.\.\/)+/, "")}`;
+  };
 
   let cachePlatos = new Map(); // id -> objeto plato
 
@@ -23,12 +37,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const abrirModal = () => overlay.classList.add("open");
   const cerrarModal = () => overlay.classList.remove("open");
 
+  const actualizarPreview = (src = "") => {
+    imgPreview.style.backgroundImage = src ? `url("${src}")` : "";
+  };
+
+  const previewDesdeArchivo = () => {
+    const file = inputImagenArchivo.files[0];
+    if (file) {
+      const lector = new FileReader();
+      lector.onload = (e) => actualizarPreview(e.target.result);
+      lector.readAsDataURL(file);
+    } else {
+      const url = inputImagenUrl.value.trim();
+      actualizarPreview(url ? normalizarImagen(url) : "");
+    }
+  };
+
   btnAbrir.addEventListener("click", () => {
     // Reset a modo "Agregar"
     tituloModal.textContent = "Agregar Plato";
     form.reset();
     inputId.value = "";
-    imgPreview.style.backgroundImage = "";
+    inputImagenArchivo.value = "";
+    actualizarPreview("");
     abrirModal();
   });
 
@@ -39,10 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Vista previa imagen
-  inputImagen.addEventListener("input", () => {
-    const url = inputImagen.value.trim();
-    imgPreview.style.backgroundImage = url ? `url("${url}")` : "";
+  inputImagenUrl.addEventListener("input", () => {
+    if (!inputImagenArchivo.files.length) {
+      const url = inputImagenUrl.value.trim();
+      actualizarPreview(url ? normalizarImagen(url) : "");
+    }
   });
+  inputImagenArchivo.addEventListener("change", previewDesdeArchivo);
 
   // Cargar lista
   async function cargarPlatos() {
@@ -55,14 +89,15 @@ document.addEventListener("DOMContentLoaded", () => {
       tabla.innerHTML = "";
       data.platos.forEach(p => {
         cachePlatos.set(Number(p.Id_producto), p);
+        const imagenResuelta = normalizarImagen(p.Imagen);
         tabla.innerHTML += `
           <tr>
             <td data-label="ID">${p.Id_producto}</td>
             <td data-label="Plato">${p.Nombre}</td>
             <td data-label="Descripción">${p.Descripcion}</td>
             <td data-label="Imagen">
-              <img src="${p.Imagen}" width="60" height="60" style="object-fit:cover;border-radius:6px;display:block;margin-bottom:6px;">
-              <a href="${p.Imagen}" target="_blank" rel="noopener">Ver</a>
+              <img src="${imagenResuelta}" width="60" height="60" style="object-fit:cover;border-radius:6px;display:block;margin-bottom:6px;">
+              <a href="${imagenResuelta}" target="_blank" rel="noopener">Ver</a>
             </td>
             <td data-label="Precio">$ ${p.Precio}</td>
             <td data-label="Tipo">${p.Tipo}</td>
@@ -90,8 +125,9 @@ document.addEventListener("DOMContentLoaded", () => {
     inputId.value = p.Id_producto;
     inputNombre.value = p.Nombre;
     inputDescripcion.value = p.Descripcion;
-    inputImagen.value = p.Imagen;
-    imgPreview.style.backgroundImage = p.Imagen ? `url("${p.Imagen}")` : "";
+    inputImagenUrl.value = p.Imagen || "";
+    inputImagenArchivo.value = "";
+    actualizarPreview(p.Imagen ? normalizarImagen(p.Imagen) : "");
     inputPrecio.value = p.Precio;
     inputTipo.value = p.Tipo;
 
@@ -117,23 +153,29 @@ document.addEventListener("DOMContentLoaded", () => {
   // Guardar (crear o actualizar)
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const payload = {
-      id: inputId.value.trim(),
-      nombre: inputNombre.value.trim(),
-      descripcion: inputDescripcion.value.trim(),
-      imagen: inputImagen.value.trim(),
-      precio: inputPrecio.value.trim(),
-      tipo: inputTipo.value.trim()
-    };
-
-    const esEdicion = !!payload.id;
+    const esEdicion = !!inputId.value.trim();
     const url = esEdicion ? "editar_plato_full.php" : "add_plato.php";
+    const formData = new FormData();
+
+    if (esEdicion) {
+      formData.append("id", inputId.value.trim());
+    }
+    formData.append("nombre", inputNombre.value.trim());
+    formData.append("descripcion", inputDescripcion.value.trim());
+    formData.append("precio", inputPrecio.value.trim());
+    formData.append("tipo", inputTipo.value.trim());
+
+    if (inputImagenUrl.value.trim()) {
+      formData.append("imagenUrl", inputImagenUrl.value.trim());
+    }
+    if (inputImagenArchivo.files[0]) {
+      formData.append("imagenArchivo", inputImagenArchivo.files[0]);
+    }
 
     try {
       const res = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: formData
       });
       const data = await res.json();
       alert(data.message);

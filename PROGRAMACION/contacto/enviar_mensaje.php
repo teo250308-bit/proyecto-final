@@ -1,35 +1,43 @@
 <?php
-// Fuerza UTF-8 para evitar caracteres mal codificados
-header('Content-Type: text/html; charset=UTF-8');
+header('Content-Type: application/json; charset=utf-8');
+require_once __DIR__ . '/../conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $nombre  = htmlspecialchars(trim($_POST['nombre'] ?? ''), ENT_QUOTES, 'UTF-8');
-  $email   = htmlspecialchars(trim($_POST['email'] ?? ''), ENT_QUOTES, 'UTF-8');
-  $mensaje = htmlspecialchars(trim($_POST['mensaje'] ?? ''), ENT_QUOTES, 'UTF-8');
+try {
+    $conn->exec("
+        CREATE TABLE IF NOT EXISTS Mensaje_contacto (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nombre VARCHAR(120) NOT NULL,
+            email VARCHAR(150) NOT NULL,
+            mensaje TEXT NOT NULL,
+            creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ");
 
-  $destinatario = 'santibernal881@gmail.com';
-  $asunto       = 'Nuevo mensaje de contacto - NUTRANT';
-  // Codificar asunto en UTF-8 para cabeceras de mail
-  $asuntoEnc    = '=?UTF-8?B?' . base64_encode($asunto) . '?=';
+    $nombre = trim($_POST['nombre'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $mensaje = trim($_POST['mensaje'] ?? '');
 
-  $contenido = "Has recibido un nuevo mensaje desde la página de contacto:\n\n" .
-               "Nombre: $nombre\n" .
-               "Correo: $email\n" .
-               "Mensaje:\n$mensaje\n";
+    if ($nombre === '' || $email === '' || $mensaje === '') {
+        http_response_code(400);
+        echo json_encode(['error' => 'Completa todos los campos']);
+        exit;
+    }
 
-  $headers  = "From: $email\r\n";
-  $headers .= "Reply-To: $email\r\n";
-  $headers .= "MIME-Version: 1.0\r\n";
-  $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-  $headers .= 'X-Mailer: PHP/' . phpversion();
+    $stmt = $conn->prepare("INSERT INTO Mensaje_contacto (nombre, email, mensaje) VALUES (:n, :e, :m)");
+    $stmt->execute([
+        ':n' => $nombre,
+        ':e' => $email,
+        ':m' => $mensaje,
+    ]);
 
-  $ok = @mail($destinatario, $asuntoEnc, $contenido, $headers);
-
-  $redirect = 'contactov2.html';
-  if ($ok) {
-    echo "<script>alert('¡Listo! Tu mensaje fue enviado correctamente. Gracias por contactarnos.'); window.location.href='$redirect';</script>";
-  } else {
-    echo "<script>alert('Error al enviar el mensaje. Por favor, intentá de nuevo.'); window.location.href='$redirect';</script>";
-  }
+    // Envío simulado (no sale correo real)
+    echo json_encode([
+        'ok' => true,
+        'mail_sent' => false,
+        'mail_method' => 'none',
+        'mail_error' => 'Envio simulado (sin SMTP configurado)',
+    ]);
+} catch (Throwable $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
 }
-?>

@@ -15,6 +15,10 @@ $payload = [
   "user_id" => $_SESSION['user_id']
 ];
 
+if (isset($_SESSION['rol']) && $_SESSION['rol']) {
+  $payload['rol'] = $_SESSION['rol'];
+}
+
 // Intenta enviar también el nombre si existe en la sesión
 if (isset($_SESSION['nombre']) && $_SESSION['nombre']) {
   $payload['nombre'] = $_SESSION['nombre'];

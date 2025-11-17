@@ -46,7 +46,7 @@
             <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDM4NCAzODQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTM2OCAxNTQuNjY3OTY5aC0zNTJjLTguODMyMDMxIDAtMTYtNy4xNjc5NjktMTYtMTZzNy4xNjc5NjktMTYgMTYtMTZoMzUyYzguODMyMDMxIDAgMTYgNy4xNjc5NjkgMTYgMTZzLTcuMTY3OTY5IDE2LTE2IDE2em0wIDAiIGZpbGw9IiMwMDAwMDAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0zNjggMzJoLTM1MmMtOC44MzIwMzEgMC0xNi03LjE2Nzk2OS0xNi0xNnM3LjE2Nzk2OS0xNiAxNi0xNmgzNTJjOC44MzIwMzEgMCAxNiA3LjE2Nzk2OSAxNiAxNnMtNy4xNjc5NjkgMTYtMTYgMTZ6bTAgMCIgZmlsbD0iIzAwMDAwMCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTM2OCAyNzcuMzMyMDMxaC0zNTJjLTguODMyMDMxIDAtMTYtNy4xNjc5NjktMTYtMTZzNy4xNjc5NjktMTYgMTYtMTZoMzUyYzguODMyMDMxIDAgMTYgNy4xNjc5NjkgMTYgMTZzLTcuMTY3OTY5IDE2LTE2IDE2em0wIDAiIGZpbGw9IiMwMDAwMDAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiPjwvcGF0aD48L2c+PC9zdmc+" />
           </i>
         </label>
-        <ul class="main-menu">
+        <ul class="main-menu" id="main-menu">
           <li class="menu-item"><a href="">Inicio</a></li>
           <li class="menu-item"><a href="index_base.html">Menú</a></li>
           <li class="menu-item"><a href="../PROGRAMACION/proceso_de_registro/registro.html">Registrarse</a></li>
@@ -89,26 +89,8 @@
   </section>
 <section class="news-section">
   <h2 class="brand-title">Novedades</h2>
-  <div class="news-grid">
-    <article class="news-card">
-      <img src="img/app.jpg" alt="Nueva carta y promos">
-      <div class="news-content">
-        <div>
-          <h3>Nuestra App</h3>
-          <p>Descargala en tu tienda y obtené descuentos.</p>
-        </div>
-      </div>
-    </article>
-    <article class="news-card reverse">
-      <img src="img/barradetragos.jpg" alt="Nueva Barra De Tragos">
-      <div class="news-content">
-        <div>
-          <h3>Nueva Barra De Tragos</h3>
-          <p>Vení a conocerla y probá nuestros clásicos.</p>
-        </div>
-      </div>
-    </article>
-  </div>
+  <div id="news-dynamic" class="news-grid"></div>
+  <p id="news-empty" class="news-empty">Pronto compartiremos novedades.</p>
 </section>
 <section class="map-section">
   <div class="map-container">
@@ -124,6 +106,55 @@
 
 </section>
   </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const grid = document.getElementById('news-dynamic');
+      const empty = document.getElementById('news-empty');
+      if (!grid || !empty) return;
+
+      const buildCard = (item, index) => {
+        const reverse = index % 2 === 1 ? ' reverse' : '';
+        const img = item.imagen && item.imagen.trim() ? item.imagen.trim() : 'img/restaurante.jpg';
+        const titulo = item.titulo || 'Novedad';
+        const descripcion = item.descripcion || '';
+        return `
+          <article class="news-card${reverse}">
+            <img src="${img}" alt="${titulo}">
+            <div class="news-content">
+              <div>
+                <h3>${titulo}</h3>
+                <p>${descripcion}</p>
+              </div>
+            </div>
+          </article>
+        `;
+      };
+
+      const defaults = [
+        { titulo: 'Nuestra App', descripcion: 'Descargala en tu tienda y obtené descuentos.', imagen: 'img/app.jpg' },
+        { titulo: 'Nueva Barra De Tragos', descripcion: 'Vení a conocerla y probá nuestros clásicos.', imagen: 'img/barradetragos.jpg' },
+      ];
+
+      // Render default mientras carga
+      grid.innerHTML = defaults.map((item, idx) => buildCard(item, idx)).join('');
+      empty.style.display = 'none';
+
+      try {
+        const res = await fetch('novedades/list.php?limit=4', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Error al cargar novedades');
+        const data = await res.json();
+        const items = Array.isArray(data.items) ? data.items : [];
+        if (items.length) {
+          empty.style.display = 'none';
+          grid.innerHTML = items.map((item, idx) => buildCard(item, idx)).join('');
+        }
+      } catch (err) {
+        console.error(err);
+        empty.textContent = 'No pudimos cargar las novedades.';
+        empty.style.display = 'block';
+      }
+    });
+  </script>
    <footer class="footer">
     <div class="wrap-footer">
       <div class="text-element-footer element-footer">
@@ -183,11 +214,15 @@
     try {
       const r = await fetch('autocheck/auth_check.php', { credentials: 'include' });
       if (!r.ok) return; const j = await r.json(); if (!j.auth) return;
-      const nav = document.querySelector('.main-menu'); if (!nav) return;
+      const nav = document.getElementById('main-menu'); if (!nav) return;
       const add = (id, html) => { if (!document.getElementById(id)) { const li = document.createElement('li'); li.className='menu-item'; li.innerHTML = html; nav.appendChild(li); } };
       add('nav-user-link', '<a id="nav-user-link" href="m_usuarios/index_usuarios.html">Mi Cuenta</a>');
       add('nav-edit-link', '<a id="nav-edit-link" href="usuario/perfil.html">Editar Perfil</a>');
-      add('nav-logout-link', '<a id="nav-logout-link" href="#">Cerrar sesi�n</a>');
+      if (j.rol === 'admin') {
+        add('nav-admin-dashboard', '<a id="nav-admin-dashboard" href="m_admin/index_admin.html">Dashboard</a>');
+        add('nav-admin-news', '<a id="nav-admin-news" href="m_admin/index_admin.html#news-admin-section">Gestionar novedades</a>');
+      }
+      add('nav-logout-link', '<a id="nav-logout-link" href="#">Cerrar sesion</a>');
       const out = document.getElementById('nav-logout-link'); if (out) out.addEventListener('click', async (e)=>{ e.preventDefault(); try { await fetch('autocheck/logout.php', { credentials:'include' }); } catch{} try { localStorage.clear(); } catch{} location.href = 'index.html'; });
     } catch {}
   });
@@ -202,10 +237,13 @@
           const li = a.closest('li'); if (li) li.style.display = 'none';
         }
       });
-      const out = document.getElementById('nav-logout-link'); if (out) out.textContent = 'Cerrar sesi�n';
+      const out = document.getElementById('nav-logout-link'); if (out) out.textContent = 'Cerrar sesi�n';
     } catch {}
   });
-</script></body>
+</script>
+<script src="js/admin_nav.js" data-base=""></script>
+<script src="analytics/tracker.js" data-root=""></script>
+</body>
 </html>
 
  

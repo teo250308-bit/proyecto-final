@@ -1,20 +1,35 @@
+.contact-page {
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(2, 6, 23, 0.9)),
+    url('../img/restaurante2.png') center/cover fixed;
+  min-height: 100vh;
+}
+
 .contacto-section {
   max-width: 1100px;
-  margin: 2rem auto 3rem; /* espacio fluido antes del footer */
-  padding: 2rem; /* consistente con resto del sitio */
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  display: flow-root; /* evita colapso de márgenes */
+  margin: 2rem auto 3rem;
+  padding: 2rem;
+  background-color: rgba(255,255,255,0.92);
+  border-radius: 16px;
+  box-shadow: 0 25px 45px rgba(15,23,42,0.2);
+  border: 1px solid rgba(255,255,255,0.35);
+  backdrop-filter: blur(4px);
+  display: flow-root;
 }
 
 .contact-container {
   position: relative;
   display: flex;
-  justify-content: flex-start; /* evita separar extremos */
+  justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
-  gap: 1.25rem; /* más juntos */
+  gap: 1.25rem;
+}
+
+.contact-info h2,
+.contact-form h2 {
+  color: var(--black-c);
+  margin-top: 0;
 }
 
 .contact-info {
@@ -23,7 +38,7 @@
   max-width: 520px;
 }
 
-.contact-info h2 {
+.contact-info p strong {
   color: var(--main-c);
 }
 
@@ -36,16 +51,30 @@
   gap: 10px;
 }
 
+.contact-form label {
+  font-weight: 600;
+  color: #1f2937;
+}
+
 .contact-form input,
 .contact-form textarea {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(87, 97, 113, 0.4);
   border-radius: 6px;
   font-size: 1rem;
+  background: rgba(255,255,255,0.9);
+  color: #1f2937;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--main-c);
+  box-shadow: 0 0 0 2px rgba(255, 195, 0, 0.2);
+  outline: none;
 }
 
 .contact-form button {
-  background-color: var(--main-c);
+  background: linear-gradient(120deg, var(--main-c), #ffdb66);
   color: #fff;
   padding: 10px;
   border: none;
@@ -56,28 +85,31 @@
 }
 
 .contact-form button:hover {
-  background-color: #e6b000;
+  filter: brightness(0.95);
 }
 
 /* Contact page hero tweaks */
 .contact-hero {
-  height: 220px; /* más bajo para quedar cerca del header */
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(0,0,0,0.35);
+  border-radius: 18px;
 }
 
 .contact-hero .wrap-hero-home-page {
-  position: static; /* evita superposición */
+  position: static;
   width: 100%;
   padding: 1rem;
+  color: #fff;
 }
 
 @media (max-width: 768px) {
   .contact-hero { height: auto; padding: 1rem 0; }
 }
 
-/* Extra spacing for contact page wrapper so content doesn't touch footer */
 .contact-wrap {
   padding-bottom: 5rem;
+  padding-top: 1rem;
 }

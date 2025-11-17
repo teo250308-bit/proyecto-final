@@ -1,5 +1,6 @@
 const contenido = document.getElementById('contenido-menu');
 const base = '../';
+const encode = (value = '') => encodeURIComponent((value ?? '').toString());
 
 async function requireAuth() {
   try {
@@ -84,6 +85,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <span>$${item.Precio}</span>
               </div>
               <div class="cta_tarjeta-rest">
+                <button class="btn-detalle"
+                        data-id="${item.Id_producto}"
+                        data-nombre="${item.Nombre}"
+                        data-precio="${item.Precio}"
+                        data-descripcion="${encode(item.Descripcion ?? '')}">
+                  Ver más
+                </button>
                 <button class="btn-pedir"
                         data-id="${item.Id_producto}"
                         data-nombre="${item.Nombre}"
@@ -98,6 +106,25 @@ document.addEventListener('DOMContentLoaded', async () => {
       `;
     });
     if (contenido) contenido.innerHTML = html || '<p>No hay productos para mostrar.</p>';
+
+    document.querySelectorAll('.btn-detalle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const nombre = btn.dataset.nombre || 'Plato';
+        const descripcion = decodeURIComponent(btn.dataset.descripcion || '');
+        const precio = parseFloat(btn.dataset.precio || '0');
+        const content = `${descripcion || 'Sin descripción disponible.'}<br><br><strong>Precio:</strong> $${precio}`;
+        if (typeof Swal !== 'undefined') {
+          Swal.fire({
+            title: nombre,
+            html: content,
+            confirmButtonText: 'Cerrar',
+            width: 600,
+          });
+        } else {
+          alert(`${nombre}\n\n${descripcion}\n\nPrecio: $${precio}`);
+        }
+      });
+    });
 
     document.querySelectorAll('.btn-pedir').forEach(btn => {
       btn.addEventListener('click', async (e) => {
